@@ -11,6 +11,7 @@ import { getFooter, getHomePage, getMilestones } from "@/services"
 
 export default async function Home() {
   const milestones = await getMilestones()
+  console.log("🚀 ~ Home ~ milestones:", milestones)
   const page = await getHomePage()
   const { Side_Sticky_Links } = await getFooter()
   
