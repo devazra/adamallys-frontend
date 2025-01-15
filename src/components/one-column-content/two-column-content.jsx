@@ -29,7 +29,7 @@ const OneColumnContent = (props) => {
           </ul>
           <div className='max-w-[178px]'>
             <Link href={link} className={`mt-6 whitespace-nowrap flex items-center text-xs justify-between md:text-base gap-6 bg-white text-theme-main py-[13px] px-[24px] font_calibri rounded-full`}>
-              <span className='leading-6'>View Products</span>
+              <span className='leading-6 !whitespace-nowrap'>View Products</span>
               <Image src={'/svg/arrow_next.svg'} alt='arrow_next' width={16} height={16} />
             </Link>
           </div>

@@ -47,7 +47,7 @@ const SingleWrapperTwoColumnContent = (props) => {
             {isProductButton &&
               <div>
                 <Link href={link || "#"} className={`flex max-w-[178px] text-xs justify-between md:text-base items-center gap-6 ${"bg-theme-main text-white"} py-[13px] px-[24px] font_calibri rounded-full`}>
-                  <span className='whitespace-nowrap'>View Products</span>
+                  <span className='!whitespace-nowrap'>View Products</span>
                   <Image src={'/svg/arrow_forward.svg'} alt='arrow_next' width={16} height={16} />
                 </Link>
               </div>

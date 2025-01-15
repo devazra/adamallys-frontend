@@ -311,3 +311,29 @@ p {
 .hideScrollBar::-webkit-scrollbar {
   display: none;
 }
+
+.webkit-flex {
+  display: -webkit-flex;
+}
+
+.webkit-wrap {
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+}
+
+.flex-dir-col {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex-dir-row {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.truncate, .whitespace-nowrap {
+  white-space: nowrap;
+  white-space: unset !important;
+}

@@ -42,9 +42,9 @@ const TwoColumnContent = (props) => {
         </div>
         {
           !hideButton &&
-          <div>
-            <Link href={link || "#"} className={`flex max-w-[178px] text-xs justify-between md:text-base items-center gap-6 ${bgGray ? "bg-theme-main text-white" : "bg-white text-theme-main"} py-[13px] px-[24px] font_calibri rounded-full`}>
-              <span className='whitespace-nowrap'>View Products</span>
+          <div className='max-w-[178px]'>
+            <Link href={link || "#"} className={`flex whitespace-nowrap text-xs justify-between md:text-base items-center gap-6 ${bgGray ? "bg-theme-main text-white" : "bg-white text-theme-main"} py-[13px] px-[24px] font_calibri rounded-full`}>
+              <span className='!whitespace-nowrap'>View Products</span>
               <Image src={bgGray ? '/svg/arrow_forward.svg' : '/svg/arrow_next.svg'} alt='arrow_next' width={16} height={16} />
             </Link>
           </div>
