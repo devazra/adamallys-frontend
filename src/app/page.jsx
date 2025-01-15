@@ -12,15 +12,25 @@ import axios from "axios";
 
 
 async function getHomePage() {
-  const params = qs.stringify({
-    populate: [
-      'Hero.video', "CertificationsMemberships.Icon", "ServiceCard.Image",
-      "Icons.Icon", "ContentCard.Image", "news_and_events.Image", "Hero.NextButtonImage"
-    ],
-  })
-  const responce = await axios.get(`https://monkfish-app-ecq7g.ondigitalocean.app/api/home-page?${params}`);
-  return responce.data?.data?.attributes
+ const params = qs.stringify({
+     populate: [
+       'Hero.video', "CertificationsMemberships.Icon", "ServiceCard.Image",
+       "Icons.Icon", "ContentCard.Image", "news_and_events.Image", "Hero.NextButtonImage"
+     ],
+   })
+
+  const response = await fetch(`https://monkfish-app-ecq7g.ondigitalocean.app/api/home-page?${params}`,{
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  const data = await response.json();
+  return data?.data?.attributes;
 }
+
 
 
 export default async function Home() {
