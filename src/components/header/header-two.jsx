@@ -25,8 +25,8 @@ const HeaderTwo = ({ data, slideFromTop }) => {
               </Link>
             </figure>
           </div>
-          <div className="flex gap-8">
-            <ul className="flex items-center gap-8">
+          <div className="flex gap-4 2xl:gap-8">
+            <ul className="flex items-center gap-4 2xl:gap-8">
               <MegaMenu />
               {
                 Secound_Header_Nav?.map((item, idx) => (

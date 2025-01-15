@@ -53,6 +53,12 @@ span {
   max-width: 1337px !important;
 }
 
+@media (max-width: 1400px) {
+  .container {
+    max-width: 1250px !important;
+  }
+}
+
 .font_calibri {
   font-family: 'calibri';
 }
@@ -63,10 +69,6 @@ span {
 
 .header-gradient {
   background: linear-gradient(0deg, rgba(38, 160, 217, 0) 0%, rgba(255, 255, 255, 0.9) 100%);
-}
-
-.container {
-  max-width: 1460px;
 }
 
 .fullscreen-video-container {

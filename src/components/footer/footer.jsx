@@ -116,12 +116,12 @@ const Footer = async () => {
               </a>
             </li>
             <li>
-              <a target="_blank" href={data?.Socials[0]?.link || "#"}>
+              <a target="_blank" href={data?.Socials[1]?.link || "#"}>
                 <Image src={data?.Socials[1]?.Icon?.data?.attributes?.url} alt="" width={13.6} height={15.5} />
               </a>
             </li>
             <li>
-              <a target="_blank" href={data?.Socials[0]?.link || "#"}>
+              <a target="_blank" href={data?.Socials[2]?.link || "#"}>
                 <Image src={data?.Socials[2]?.Icon?.data?.attributes?.url} alt="" width={13.5} height={1.5} />
               </a>
             </li>
