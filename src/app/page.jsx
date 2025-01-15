@@ -6,7 +6,7 @@ import Milestones from "@/components/milestones/Milestones"
 import OurBrands from "@/components/our-brands/our-brands";
 import Cards from "@/components/Cards/Cards";
 import News from "@/components/news/News"
-import { getFooter, getHomePage, getMilestones } from "@/services"
+import { getFooter, getMilestones } from "@/services"
 
 
 
