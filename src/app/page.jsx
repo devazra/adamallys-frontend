@@ -8,7 +8,7 @@ import Cards from "@/components/Cards/Cards";
 import News from "@/components/news/News"
 import { getFooter, getMilestones } from "@/services"
 import qs from "qs"
-import axios from "axios";
+// import axios from "axios";
 
 
 async function getHomePage() {
@@ -22,10 +22,6 @@ async function getHomePage() {
   const response = await fetch(`https://monkfish-app-ecq7g.ondigitalocean.app/api/home-page?${params}`,{
     cache: "no-store",
   });
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch data');
-  }
 
   const data = await response.json();
   return data?.data?.attributes;
