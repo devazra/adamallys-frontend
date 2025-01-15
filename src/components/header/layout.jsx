@@ -12,20 +12,9 @@ const HeaderLayout = ({ data }) => {
   const path = usePathname()
   return (
     <div className={`${path === "/" ? '' : 'pb-4'} z-[99999] relative`}>
-      {
-        path === "/" ?
-          <>
-            <HeaderOne data={data} />
-            <HeaderTwo data={data} slideFromTop />
-          </>
-          :
-          <>
-            <HeaderOne data={data} />
-            <HeaderTwo data={data} />
-          </>
-      }
+      <HeaderOne data={data} />
+      <HeaderTwo data={data} slideFromTop />
     </div>
-
   )
 }
 

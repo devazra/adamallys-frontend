@@ -237,12 +237,7 @@ async function getWhyChoose() {
 }
 
 async function getPrivacyPolicy() {
-  const params = qs.stringify({
-    populate: [
-      'content'
-    ],
-  })
-  const responce = await Axios(`/privacy-policy-page?${params}`);
+  const responce = await Axios(`/privacy-policy-page?populate=*`);
   return responce.data?.attributes
 }
 
