@@ -16,7 +16,7 @@ const HeaderOne = ({ data }) => {
       <section className="py-5 hidden xl:block text-theme-main header-gradient font_calibri">
         <div className="container mx-auto">
           <div className="flex justify-between items-center gap-4">
-            <ul className="flex gap-9 items-center">
+            <ul className="flex gap-4 2xl:gap-9 items-center">
               <MegaMenu />
               {NavLinks?.slice(0, 2).map((item, idx) => (
                 item?.Label?.toLowerCase() === 'standards & innovation' ?
@@ -63,7 +63,7 @@ const HeaderOne = ({ data }) => {
               </figure>
             </div>
             <div className="flex gap-[23px] justify-end">
-              <ul className="flex items-center gap-[27px]">
+              <ul className="flex items-center gap-4 2xl:gap-[27px]">
                 {NavLinks?.slice(2).map((item, idx) => (
                   item?.Label?.toLowerCase() === 'who we are' ?
                     <MegaMenu
