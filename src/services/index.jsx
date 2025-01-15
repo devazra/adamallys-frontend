@@ -18,7 +18,7 @@ async function getMilestones() {
     ],
   })
   const milestoneResponce = await Axios(`/milestone-section?${params}`);
-  return milestoneResponce.dat?.attributes
+  return milestoneResponce.data?.attributes
 }
 
 async function getHomePage() {
