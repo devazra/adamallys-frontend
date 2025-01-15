@@ -19,20 +19,20 @@ const SustainabilityTemplate = (props) => {
           backgroundRepeat: 'no-repeat',
           backgroundImage: `url(${BannerImage?.data?.[0]?.attributes?.url})`,
         }}
-        className={`w-full max-w-[100%] relative min-h-[288px] md:min-h-[786px] flex flex-col justify-end items-end`}>
+        className={`w-full max-w-[100%] relative min-h-[288px] md:min-h-[615px] flex flex-col justify-end items-end`}>
         <div
           style={{ background: 'linear-gradient(to bottom, rgba(23, 31, 124, 0), rgba(23, 31, 124, 1))' }}
           className="h-[364px] w-full -mb-5"
         />
         <div
           style={{ background: 'rgba(23, 31, 124, 1)' }}
-          className="relative text-white w-full px-6 py-5 sm:px-9 sm:py-8 lg:px-[53px] lg:pb-[80px]">
+          className="relative text-white w-full px-6 py-5 sm:px-9 sm:py-8 lg:px-[53px] lg:pb-[30px]">
           <p className="text-[16px] mx-auto max-w-[815px] text-center sm:text-[18px] font_calibri font-light">
             {BannerContent}
           </p>
         </div>
       </div>
-      <div className="sticky top-20 mt-[10px]">
+      <div className="sticky top-20 mt-[40px] z-[-2] ">
         <TwoColumnContent
           zeroGap
           hideButton
@@ -42,7 +42,7 @@ const SustainabilityTemplate = (props) => {
           points={Cards?.[0]?.lists?.map(({ list }) => list)}
         />
       </div>
-      <div className="sticky top-20">
+      <div className="sticky top-20 z-[-1]">
         <TwoColumnContent
           invert
           bgGray
@@ -54,7 +54,7 @@ const SustainabilityTemplate = (props) => {
           points={Cards?.[1]?.lists?.map(({ list }) => list)}
         />
       </div>
-      <section className={`px-[18px] md:px-0 relative container mx-auto grid pb-4 z-9 bg-white`}>
+      <section className={`px-[18px] md:px-0 sticky container mx-auto grid pb-4 z-9 bg-white`}>
         <div>
           <figure>
             <Image
