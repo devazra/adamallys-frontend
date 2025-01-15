@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 const itemsPerPage = 20;
 
 const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorries, grandTotal, currentPageIndex }) => {
+  
   const params = useSearchParams()
   const pageNo = params.get('page')
 
@@ -28,10 +29,10 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
       setProducts(data);
       return;
     }
-    const searchedProducts = data?.data?.filter((item) =>
+    const searchedProducts = data?.filter((item) =>
       item.attributes.Title.toLowerCase().includes(value.toLowerCase())
-    );
-    setProducts({ ...products, data: searchedProducts });
+  );
+    setProducts(searchedProducts);
   };
 
   const handleSelectCategory = (e) => {
@@ -140,7 +141,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
           <CiCircleInfo /> <span>Note: Images are for illustrative purposes only. Brands and trademarks shown may not be sold, distributed, or affiliated with Adamallys LLC.</span>
         </p>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-[9px]  mt-[30px]'>
-          {products?.data?.map((product, index) =>
+          {products?.map((product, index) =>
             <ProductCard key={index} {...product.attributes} />
           )}
         </div>

@@ -20,7 +20,7 @@ const renderRichText = (blocks) => {
 };
 
 const ShipSupply = (props) => {
-  const { title, content, Product_and_service, milestones, OtherServices: otherServicesData } = props;
+  const { title, content, Product_and_service, milestones, OtherServices: otherServicesData, Buttons } = props;
 
   const text = renderRichText(content)
   return (
@@ -80,7 +80,7 @@ const ShipSupply = (props) => {
           </div>
         </div>
       </section>
-      <Platforms />
+      <Platforms Buttons={Buttons[0]}/>
       <Milestones data={milestones} />
       <ChooseAdamallys />
       <OtherServices {...otherServicesData} />
