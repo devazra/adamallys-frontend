@@ -8,6 +8,7 @@ import Cards from "@/components/Cards/Cards";
 import News from "@/components/news/News"
 import { getFooter, getMilestones } from "@/services"
 import qs from "qs"
+import axios from "axios";
 
 
 async function getHomePage() {
