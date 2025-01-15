@@ -6,6 +6,7 @@ import Milestones from '@/components/milestones/Milestones'
 import ChooseAdamallys from '@/components/choose-adamallys/choose-adamallys'
 import OtherServices from "@/components/other-services-slider/OtherServices"
 import modifyImageUrl from "@/utils/modifyImageUrl"
+import Platforms from "@/components/Platoforms"
 
 const renderRichText = (blocks) => {
   return blocks?.map((block, index) => {
@@ -79,6 +80,7 @@ const ShipSupply = (props) => {
           </div>
         </div>
       </section>
+      <Platforms />
       <Milestones data={milestones} />
       <ChooseAdamallys />
       <OtherServices {...otherServicesData} />
