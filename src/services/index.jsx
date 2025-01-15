@@ -90,7 +90,12 @@ async function getFooter() {
 }
 
 async function getContactUs() {
-  const response = await Axios(`/contact-page?populate=*`);
+  const params = qs.stringify({
+    populate: [
+      'Buttons.Buttons',
+    ],
+  })
+  const response = await Axios(`/contact-page?${params}`);
   return response.data?.attributes
 }
 
@@ -188,7 +193,7 @@ async function getShipSpareParts() {
 async function getShipSupply() {
   const params = qs.stringify({
     populate: [
-      'Product_and_service.Image', 'OtherServices.Image', 'OtherServices.Services'
+      'Product_and_service.Image', 'OtherServices.Image', 'OtherServices.Services', 'Buttons.Buttons'
     ],
   })
   const responce = await Axios(`/ship-supply-page?${params}`);
