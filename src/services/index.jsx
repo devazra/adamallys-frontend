@@ -7,8 +7,8 @@ async function getDistributorsAndStockists() {
       'Image', "Cards.Icon", "Banner.Image"
     ],
   })
-  const responce = await Axios.get(`/distributors-and-stockists-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/distributors-and-stockists-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getMilestones() {
@@ -17,8 +17,8 @@ async function getMilestones() {
       'Background_Image', "Milestones.Icon"
     ],
   })
-  const milestoneResponce = await Axios.get(`/milestone-section?${params}`);
-  return milestoneResponce.data.data?.attributes
+  const milestoneResponce = await Axios(`/milestone-section?${params}`);
+  return milestoneResponce.dat?.attributes
 }
 
 async function getHomePage() {
@@ -28,8 +28,8 @@ async function getHomePage() {
       "Icons.Icon", "ContentCard.Image", "news_and_events.Image", "Hero.NextButtonImage"
     ],
   })
-  const responce = await Axios.get(`/home-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/home-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getCertificationsAndMemberships() {
@@ -38,8 +38,8 @@ async function getCertificationsAndMemberships() {
       'Certifications', 'Certifications.Image', "Memberships.Image"
     ],
   })
-  const responce = await Axios.get(`/certifications-and-memberships-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/certifications-and-memberships-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getAboutUs() {
@@ -49,8 +49,8 @@ async function getAboutUs() {
       "HistoryList.Image", "PresentDayImage", "ExpertiseMedia"
     ],
   })
-  const responce = await Axios.get(`/about-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/about-page?${params}`);
+  return responce.data?.attributes
 }
 
 
@@ -60,7 +60,7 @@ async function getNewsAndEvents() {
       'Image'
     ],
   })
-  const responce = await Axios.get(`/news-and-events?${params}`);
+  const responce = await Axios(`/news-and-events?${params}`);
   return responce.data
 }
 
@@ -74,7 +74,7 @@ async function getSingleNewsAndEvents(slug) {
       Slug: { $eq: slug }
     }
   })
-  const responce = await Axios.get(`/news-and-events?${params}`);
+  const responce = await Axios(`/news-and-events?${params}`);
   return responce.data.data
 }
 
@@ -85,13 +85,13 @@ async function getFooter() {
       "Buttons", "Socials.Icon", "Side_Sticky_Links.Icon"
     ],
   })
-  const responce = await Axios.get(`/footer?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/footer?${params}`);
+  return responce.data?.attributes
 }
 
 async function getContactUs() {
-  const response = await Axios.get(`/contact-page?populate=*`);
-  return response.data?.data?.attributes
+  const response = await Axios(`/contact-page?populate=*`);
+  return response.data?.attributes
 }
 
 async function getDigitalizationAndTechnologyAtAdamallys() {
@@ -100,8 +100,8 @@ async function getDigitalizationAndTechnologyAtAdamallys() {
       'Banner_Image', "Content_Cards.Image", 'Cards.image', 'Cards.lists'
     ],
   })
-  const responce = await Axios.get(`/digitalization-and-technology-at-adamallys-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/digitalization-and-technology-at-adamallys-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getDryDockingService() {
@@ -110,8 +110,8 @@ async function getDryDockingService() {
       'cards.Icon', "Why_Choose_Image", "banner_background_image", 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
-  const responce = await Axios.get(`/dry-docking-service-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/dry-docking-service-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getHeader() {
@@ -120,8 +120,8 @@ async function getHeader() {
       'Logo', "NavLinks", "Button", "Secound_Header_Nav"
     ],
   })
-  const responce = await Axios.get(`/header?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/header?${params}`);
+  return responce.data?.attributes
 }
 
 async function getIndustrialEnergy() {
@@ -130,8 +130,8 @@ async function getIndustrialEnergy() {
       'Video', 'Our_Key_Product_Offerings', 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
-  const responce = await Axios.get(`/industrial-and-energy-sector-supplies-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/industrial-and-energy-sector-supplies-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getMarineLogisticsWarehousing() {
@@ -140,8 +140,8 @@ async function getMarineLogisticsWarehousing() {
       'video', "Warehousing_videos", "list", 'Cards', 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
-  const responce = await Axios.get(`/marine-logistics-and-warehousing-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/marine-logistics-and-warehousing-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getMarineRopesAndMooringRopes() {
@@ -150,8 +150,8 @@ async function getMarineRopesAndMooringRopes() {
       'banner_backeground_image', "Card.Images", "Card.list", 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
-  const responce = await Axios.get(`/marine-ropes-and-mooring-ropes-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/marine-ropes-and-mooring-ropes-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getOtherService() {
@@ -160,8 +160,8 @@ async function getOtherService() {
       'OtherServices', "Image"
     ],
   })
-  const responce = await Axios.get(`/other-service?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/other-service?${params}`);
+  return responce.data?.attributes
 }
 
 async function getProvisionsBondedStores() {
@@ -170,8 +170,8 @@ async function getProvisionsBondedStores() {
       'banner_background_image', "Cards.Image", "Cards.List", "Cards.List.lists", 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
-  const responce = await Axios.get(`/provisions-and-bonded-stores-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/provisions-and-bonded-stores-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getShipSpareParts() {
@@ -180,8 +180,8 @@ async function getShipSpareParts() {
       'banner_background_image', "Why_Choose_Image", "Cards.image", "Cards.lists", 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
-  const responce = await Axios.get(`/ship-spare-parts-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/ship-spare-parts-page?${params}`);
+  return responce.data?.attributes
 }
 
 
@@ -191,8 +191,8 @@ async function getShipSupply() {
       'Product_and_service.Image', 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
-  const responce = await Axios.get(`/ship-supply-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/ship-supply-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getSustainabilityAtAdamallys() {
@@ -201,8 +201,8 @@ async function getSustainabilityAtAdamallys() {
       'BannerImage', "Vision_Image", "Commitment_Image", "CSR_Image", "Cards.lists", "Cards.image"
     ],
   })
-  const responce = await Axios.get(`/sustainability-at-adamallys-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/sustainability-at-adamallys-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getTechnicalMarineStores() {
@@ -211,8 +211,8 @@ async function getTechnicalMarineStores() {
       'banner_background_image', "Card.image", "Tags", "Card", "Card.lists", "Card.Secound_Image", 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
-  const responce = await Axios.get(`/technical-marine-stores-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/technical-marine-stores-page?${params}`);
+  return responce.data?.attributes
 }
 
 async function getPorts() {
@@ -232,8 +232,8 @@ async function getWhyChoose() {
       'Image', "WhyChoose"
     ],
   })
-  const responce = await Axios.get(`/why-choose-adamally?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/why-choose-adamally?${params}`);
+  return responce.data?.attributes
 }
 
 async function getPrivacyPolicy() {
@@ -242,8 +242,8 @@ async function getPrivacyPolicy() {
       'content'
     ],
   })
-  const responce = await Axios.get(`/privacy-policy-page?${params}`);
-  return responce.data?.data?.attributes
+  const responce = await Axios(`/privacy-policy-page?${params}`);
+  return responce.data?.attributes
 }
 
 

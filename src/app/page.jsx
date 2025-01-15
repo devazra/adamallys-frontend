@@ -6,27 +6,7 @@ import Milestones from "@/components/milestones/Milestones"
 import OurBrands from "@/components/our-brands/our-brands";
 import Cards from "@/components/Cards/Cards";
 import News from "@/components/news/News"
-import { getFooter, getMilestones } from "@/services"
-import qs from "qs"
-// import axios from "axios";
-
-
-async function getHomePage() {
- const params = qs.stringify({
-     populate: [
-       'Hero.video', "CertificationsMemberships.Icon", "ServiceCard.Image",
-       "Icons.Icon", "ContentCard.Image", "news_and_events.Image", "Hero.NextButtonImage"
-     ],
-   })
-
-  const response = await fetch(`https://monkfish-app-ecq7g.ondigitalocean.app/api/home-page?${params}`,{
-    cache: "no-store",
-  });
-
-  const data = await response.json();
-  return data?.data?.attributes;
-}
-
+import { getFooter, getHomePage, getMilestones } from "@/services"
 
 
 export default async function Home() {
