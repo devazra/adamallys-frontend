@@ -7,7 +7,6 @@ import SingleWrapperTwoColumnContent from '@/components/single-wrapper-two-colum
 
 const ProvisionsAndBondedStoresTemplate = (props) => {
   const { banner_background_image, banner_info, banner_title, Cards, OtherServices: otherServicesData } = props;
-  console.log("🚀 ~ ProvisionsAndBondedStoresTemplate ~ Cards:", Cards)
 
   return (
     <>

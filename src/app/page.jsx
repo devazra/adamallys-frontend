@@ -6,13 +6,36 @@ import Milestones from "@/components/milestones/Milestones"
 import OurBrands from "@/components/our-brands/our-brands";
 import Cards from "@/components/Cards/Cards";
 import News from "@/components/news/News"
-import { getFooter, getHomePage, getMilestones } from "@/services"
+import { getFooter, getMilestones } from "@/services"
+import qs from "qs"
+
+
+
+async function getHomePage() {
+  const params = qs.stringify({
+    populate: [
+      'Hero.video', "CertificationsMemberships.Icon", "ServiceCard.Image",
+      "Icons.Icon", "ContentCard.Image", "news_and_events.Image", "Hero.NextButtonImage"
+    ],
+  })
+
+  const response = await fetch(`${process.env.BACKEND_PUBLIC_BASE_URL}/api/home-page?${params}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  const data = await response.json();
+  return data?.data?.attributes;
+}
+
 
 export default async function Home() {
   const milestones = await getMilestones()
   const page = await getHomePage()
   const { Side_Sticky_Links } = await getFooter()
-  
+
   const {
     BrandContent,
     CertificationsMemberships,
@@ -26,14 +49,14 @@ export default async function Home() {
 
   return (
     <>
-      <Main data={Hero} Side_Sticky_Links={Side_Sticky_Links}/>
-      <CertificationsAndMemberships data={CertificationsMemberships}/>
-      <OurCompany data={Our_Company_Content}/>
-      <Services data={ServiceCard}/>
+      <Main data={Hero} Side_Sticky_Links={Side_Sticky_Links} />
+      <CertificationsAndMemberships data={CertificationsMemberships} />
+      <OurCompany data={Our_Company_Content} />
+      <Services data={ServiceCard} />
       <Milestones data={milestones} />
-      <OurBrands data={Icons} content={BrandContent}/>
-      <Cards data={ContentCard}/>
-      <News data={news_and_events}/>
+      <OurBrands data={Icons} content={BrandContent} />
+      <Cards data={ContentCard} />
+      <News data={news_and_events} />
     </>
   );
 }
