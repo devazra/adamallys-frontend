@@ -36,13 +36,13 @@ async function getProducts(searchParams) {
     }
   }, { encodeValuesOnly: true });
 
-  const baseCategorriesRes = await Axios.get(`/base-categories`);
-  const baseCategory = await Axios.get(`/base-categories?${GCparams}`);
-  const responce = await Axios.get(`/products?${params}`);
-  const getProductLengthRes = await Axios.get(`/products`);
-  const categories = baseCategory?.data?.data[0]?.attributes?.general_categories?.data
-  const specificCategorries = baseCategory?.data?.data[0]?.attributes?.specific_categories?.data
-  const baseCategorries = baseCategorriesRes.data.data?.map((item) => ({
+  const baseCategorriesRes = await Axios(`/base-categories`);
+  const baseCategory = await Axios(`/base-categories?${GCparams}`);
+  const responce = await Axios(`/products?${params}`);
+  const getProductLengthRes = await Axios(`/products`);
+  const categories = baseCategory?.data[0]?.attributes?.general_categories?.data
+  const specificCategorries = baseCategory?.data[0]?.attributes?.specific_categories?.data
+  const baseCategorries = baseCategorriesRes.data?.map((item) => ({
     Name: item.attributes.Name,
     Slug: item.attributes.Slug
   }))
