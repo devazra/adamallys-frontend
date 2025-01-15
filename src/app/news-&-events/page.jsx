@@ -11,9 +11,9 @@ export default async function News() {
     date: attributes?.Date,
     excerpt: attributes?.Excerpt,
     image: attributes?.Image?.data?.attributes?.url,
-  }));
+  })) || [];
 
-  const sortedNewsData = newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sortedNewsData = newsData?.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <>
