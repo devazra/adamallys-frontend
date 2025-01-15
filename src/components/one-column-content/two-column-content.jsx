@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import Image from 'next/image'
 import LiBold from '../LiBold';
 
 const OneColumnContent = (props) => {
-  const { id, leftTitle, title, caption, image, points } = props;
+  const { id, leftTitle, title, caption, image, points, link = '#' } = props;
 
   return (
     <section id={id} className={`container mx-auto grid mb-4 px-[18px] xl:px-0`}>
@@ -26,10 +27,12 @@ const OneColumnContent = (props) => {
               <LiBold isGradientBg className='!text-xs md:!text-lg' key={index}>{point}</LiBold>
             )}
           </ul>
-          <button className={`mt-6 flex items-center text-xs justify-between md:text-base gap-6 bg-white text-theme-main py-[13px] px-[24px] font_calibri rounded-full`}>
-            <span className='leading-6'>View Products</span>
-            <Image src={'/svg/arrow_next.svg'} alt='arrow_next' width={16} height={16} />
-          </button>
+          <div className='max-w-[178px]'>
+            <Link href={link} className={`mt-6 whitespace-nowrap flex items-center text-xs justify-between md:text-base gap-6 bg-white text-theme-main py-[13px] px-[24px] font_calibri rounded-full`}>
+              <span className='leading-6'>View Products</span>
+              <Image src={'/svg/arrow_next.svg'} alt='arrow_next' width={16} height={16} />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

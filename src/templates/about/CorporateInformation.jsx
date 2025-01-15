@@ -28,7 +28,7 @@ const CorporateInformation = ({ data }) => {
           </div>
           <div className='basis-[50%] flex flex-col justify-center z-[10]'>
             <p className='font_franklin capitalize text-[25px] md:text-left text-center md:text-[59px] leading-[49px] mb-[7px] md:pb-[26px] text-[#020911]'>{data?.ci_title}</p>
-            <p className='font_calibri capitalize md:text-base text-center text-xs md:text-left md:leading-[26px] font-light'>{data?.ci_info}</p>
+            <p className='font_calibri md:text-base text-center text-xs md:text-left md:leading-[26px] font-light'>{data?.ci_info}</p>
           </div>
         </div>
       </div>

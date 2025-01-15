@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import LiBold from '../LiBold';
+import Link from 'next/link';
 
 const GridContent = (props) => {
   const { id, data, images } = props;
@@ -25,7 +26,7 @@ const GridContent = (props) => {
         )}
       </div>
       <div className="flex flex-col md:flex-row gap-4">
-        {data?.map(({ title, points, caption, bgGray }) =>
+        {data?.map(({ title, points, caption, bgGray, link }) =>
           <div
             key={title}
             className={`basis-[100%] md:basis-[50%] flex flex-col justify-between p-8 lg:p-14 ship_supply_content ${bgGray ? "bg-[#F1F3F5] text-theme-main" : "blue_gradient2 text-white"}`}
@@ -41,11 +42,11 @@ const GridContent = (props) => {
                 </ul>
               }
             </div>
-            <div>
-              <button className={`flex items-center text-xs justify-between md:text-base gap-6 ${bgGray ? "bg-theme-main text-white" : "bg-white text-theme-main"} py-[13px] px-[24px] font_calibri rounded-full`}>
+            <div className='max-w-[178px]'>
+              <Link href={link} className={`whitespace-nowrap flex items-center text-xs justify-between md:text-base gap-6 ${bgGray ? "bg-theme-main text-white" : "bg-white text-theme-main"} py-[13px] px-[24px] font_calibri rounded-full`}>
                 <span>View Products</span>
                 <Image src={bgGray ? '/svg/arrow_forward.svg' : '/svg/arrow_next.svg'} alt='arrow_next' width={16} height={16} />
-              </button>
+              </Link>
             </div>
           </div>
         )}

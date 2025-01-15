@@ -26,6 +26,7 @@ const TechnicalMarineStoresTemplate = (props) => {
       <Tags tags={tagList} />
       <TwoColumnContent
         id={tagList[0]}
+        link={Card?.[0]?.link}
         title={Card?.[0]?.title}
         caption={Card?.[0]?.info}
         image={Card?.[0]?.image?.data?.attributes?.url}
@@ -35,6 +36,7 @@ const TechnicalMarineStoresTemplate = (props) => {
         invert
         bgGray
         id={tagList[1]}
+        link={Card?.[1]?.link}
         title={Card?.[1]?.title}
         caption={Card?.[1]?.info}
         image={Card?.[1]?.image?.data?.attributes?.url}
@@ -42,6 +44,7 @@ const TechnicalMarineStoresTemplate = (props) => {
       />
       <ThreeColumnContent
         id={tagList[2]}
+        link={Card?.[2]?.link}
         title={Card?.[2]?.title}
         caption={Card?.[2]?.info}
         image1={Card?.[2]?.image?.data?.attributes?.url}
@@ -53,6 +56,7 @@ const TechnicalMarineStoresTemplate = (props) => {
         id={tagList[3]}
         isCustomBasis
         bgColor={"#E0E2FB"}
+        link={Card?.[3]?.link}
         title={Card?.[3]?.title}
         caption={Card?.[3]?.info}
         image={Card?.[3]?.image?.data?.attributes?.url}
@@ -61,6 +65,7 @@ const TechnicalMarineStoresTemplate = (props) => {
       <OneColumnContent
         leftTitle
         id={tagList[4]}
+        link={Card?.[4]?.link}
         title={Card?.[4]?.title}
         caption={Card?.[4]?.info}
         image={Card?.[4]?.image?.data?.attributes?.url}
@@ -69,6 +74,7 @@ const TechnicalMarineStoresTemplate = (props) => {
       <TwoColumnContent
         bgGray
         id={tagList[5]}
+        link={Card?.[5]?.link}
         title={Card?.[5]?.title}
         caption={Card?.[5]?.info}
         image={Card?.[5]?.image?.data?.attributes?.url}
@@ -78,6 +84,7 @@ const TechnicalMarineStoresTemplate = (props) => {
         bgGray
         invert
         id={tagList[6]}
+        link={Card?.[6]?.link}
         title={Card?.[6]?.title}
         caption={Card?.[6]?.info}
         image={Card?.[6]?.image?.data?.attributes?.url}
@@ -85,6 +92,7 @@ const TechnicalMarineStoresTemplate = (props) => {
       />
       <ThreeColumnContent
         id={tagList[7]}
+        link={Card?.[7]?.link}
         title={Card?.[7]?.title}
         caption={Card?.[7]?.info}
         image1={Card?.[7]?.image?.data?.attributes?.url}
@@ -93,6 +101,7 @@ const TechnicalMarineStoresTemplate = (props) => {
       />
       <TwoColumnContent
         id={tagList[8]}
+        link={Card?.[8]?.link}
         title={Card?.[8]?.title}
         caption={Card?.[8]?.info}
         image={Card?.[8]?.image?.data?.attributes?.url}
@@ -100,6 +109,7 @@ const TechnicalMarineStoresTemplate = (props) => {
       />
       <ThreeColumnContent
         id={tagList[9]}
+        link={Card?.[9]?.link}
         title={Card?.[9]?.title}
         caption={Card?.[9]?.info}
         image1={Card?.[9]?.image?.data?.attributes?.url}
@@ -108,6 +118,7 @@ const TechnicalMarineStoresTemplate = (props) => {
       />
       <OneColumnContent
         id={tagList[10]}
+        link={Card?.[10]?.link}
         title={Card?.[10]?.title}
         caption={Card?.[10]?.info}
         image={Card?.[10]?.image?.data?.attributes?.url}
@@ -119,11 +130,13 @@ const TechnicalMarineStoresTemplate = (props) => {
           data={[
             {
               bgGray: true,
+              link: Card?.[11]?.link,
               title: Card?.[11]?.title,
               caption: Card?.[11]?.info,
               points: Card?.[11]?.lists?.map(({ list }) => list),
             },
             {
+              link: Card?.[12]?.link,
               title: Card?.[12]?.title,
               caption: Card?.[12]?.info,
               points: Card?.[12]?.lists?.map(({ list }) => list),
@@ -136,6 +149,7 @@ const TechnicalMarineStoresTemplate = (props) => {
         <TwoColumnContent
           bgGray
           id={tagList[11]}
+          link={Card?.[11]?.link}
           title={Card?.[11]?.title}
           caption={Card?.[11]?.info}
           image={Card?.[11]?.image?.data?.attributes?.url}
@@ -143,6 +157,7 @@ const TechnicalMarineStoresTemplate = (props) => {
         />
         <TwoColumnContent
           id={tagList[12]}
+          link={Card?.[12]?.link}
           title={Card?.[12]?.title}
           caption={Card?.[12]?.info}
           image={Card?.[12]?.image?.data?.attributes?.url}
@@ -154,6 +169,7 @@ const TechnicalMarineStoresTemplate = (props) => {
         id={tagList[13]}
         isCustomBasis
         bgColor={"#E0E2FB"}
+        link={Card?.[13]?.link}
         title={Card?.[13]?.title}
         caption={Card?.[13]?.info}
         image={Card?.[13]?.image?.data?.attributes?.url}
