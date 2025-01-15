@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { CiCircleInfo } from "react-icons/ci";
 import Pagination from '@/components/Pagination';
 import RightDrawer from '@/components/RightDrawer';
 import ProductCard from '@/components/ProductCard';
@@ -135,7 +136,9 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
         </div>
 
         <div className='hidden md:block w-full h-[0.5px] bg-theme-main' />
-
+        <p className='flex items-center gap-2 text-[#2E368F] text-xs mt-[20px]'>
+          <CiCircleInfo /> <span>Note: Images are for illustrative purposes only. Brands and trademarks shown may not be sold, distributed, or affiliated with Adamallys LLC.</span>
+        </p>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-[9px]  mt-[30px]'>
           {products?.data?.map((product, index) =>
             <ProductCard key={index} {...product.attributes} />
