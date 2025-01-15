@@ -12,7 +12,8 @@ const defaultValues = {
 }
 
 const ContactTemplate = (props) => {
-  const { AddressOne, AddressTwo, Email, Fax, MobileNumber } = props.data;
+  const { AddressOne, AddressTwo, Email, Fax, MobileNumber, Buttons } = props.data;
+  console.log("🚀 ~ ContactTemplate ~ Buttons:", Buttons)
   const [formData, setFormData] = useState(defaultValues);
 
   const handleChange = (e) => {
@@ -37,20 +38,6 @@ const ContactTemplate = (props) => {
     console.log(formData);
   };
 
-  const Buttons = [
-    {
-      label: "Visit Our ShipServ Page",
-      Link: "https://www.shipserv.com/supplier/profile/s/adamallys-llc-59590"
-    },
-    {
-      label: "MESPAS ID: SSM-N3X",
-      Link: "https://sbm.mespas.com/landing"
-    },
-    {
-      label: "ProcureShip ID: 440",
-      Link: "https://procureship.com/"
-    },
-  ]
   return (
     <main
       className='mt-[4rem] md:mt-[8rem]'
@@ -159,10 +146,10 @@ const ContactTemplate = (props) => {
           </div>
         </div>
         <div className='bg-[#4A51A2] px-2 py-8 flex gap-2 flex-wrap justify-center lg:gap-4'>
-          {Buttons?.map((item, idx) => (
+          {Buttons?.Buttons?.map((item, idx) => (
             <a target="_blank" href={item?.Link || "#"} key={idx}>
               <button className="py-[6px] font_calibri font-semibold px-4 sm:px-[30px] border border[#FFFFFF] text-[#FFFFFF] leading-[32px] rounded-full w-[242px]">
-                {item?.label}
+                {item?.Label}
               </button>
             </a>
           ))}
