@@ -7,7 +7,7 @@ import OurBrands from "@/components/our-brands/our-brands";
 import Cards from "@/components/Cards/Cards";
 import News from "@/components/news/News"
 import { getFooter, getMilestones } from "@/services"
-
+import qs from "qs"
 
 
 async function getHomePage() {
