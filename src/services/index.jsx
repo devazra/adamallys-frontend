@@ -75,7 +75,7 @@ async function getSingleNewsAndEvents(slug) {
     }
   })
   const responce = await Axios(`/news-and-events?${params}`);
-  return responce.data.data
+  return responce.data
 }
 
 async function getFooter() {
