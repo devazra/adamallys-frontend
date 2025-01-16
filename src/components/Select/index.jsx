@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Select = (props) => {
-    const { value, onChange, placeholder = 'Select', options = [] } = props;
+    const { value = '', onChange, placeholder = 'Select', options = [] } = props;
     return (
         <select
             value={value}

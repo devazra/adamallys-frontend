@@ -5,7 +5,7 @@ import qs from "qs"
 async function getProducts(searchParams) {
   const generalCheckedValues = searchParams?.type === "general" ? searchParams?.categories.split(',') : []
   const specificCheckedValues = searchParams?.type === "specific" ? searchParams?.categories.split(',') : []
-  
+
   const params = qs.stringify({
     populate: [
       'Image', "general_category", "specific_category"
@@ -66,7 +66,7 @@ const Products = async ({ searchParams }) => {
       specificCategorries={specificCategorries}
       baseCategorries={baseCategorries}
       grandTotal={productLength}
-      currentPageIndex={searchParams?.page}
+      searchParams={searchParams}
     />
   )
 }

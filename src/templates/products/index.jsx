@@ -3,22 +3,21 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Select from '@/components/Select';
 import Pagination from '@/components/Pagination';
-import RightDrawer from '@/components/RightDrawer';
+import FullPageLoader from '@/components/FullPageLoader';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ProductListing from '../../components/ProductListing';
 
 const itemsPerPage = 50;
 
-const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorries, grandTotal, currentPageIndex }) => {
+const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorries, searchParams }) => {
 
   const params = useSearchParams()
   const pageNo = params.get('page')
 
-  const [currentPage, setCurrentPage] = useState(currentPageIndex ? currentPageIndex : 1);
-  const [products, setProducts] = useState(data)
-  const [totalProducts, setTotalProducts] = useState(grandTotal)
+  const [currentPage, setCurrentPage] = useState(searchParams?.page ? searchParams?.page : 1);
+  const [products, setProducts] = useState(data);
+  const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectBaseCategory, setSelectBaseCategory] = useState();
 
   const router = useRouter()
 
@@ -36,15 +35,16 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
   };
 
   const handleSelectCategory = (e) => {
-    setSelectBaseCategory(e.target.value)
     const q = pageNo ?
       `?baseCategory=${e.target.value}&page=1` :
       `?baseCategory=${e.target.value}`
-    router.push(q)
+    router.push(q);
+    setIsLoading(true);
   }
 
   useEffect(() => {
     setProducts(data);
+    setIsLoading(false);
   }, [data]);
 
   return (
@@ -75,7 +75,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
             </div>
             <div className="hidden md:block relative flex items-center lg:flex-auto min-w-[220px] max-w-[297px] lg:w-[297px]">
               <Select
-                value={selectBaseCategory}
+                value={searchParams?.baseCategory}
                 placeholder='Base Category'
                 onChange={(e) => handleSelectCategory(e)}
                 options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
@@ -88,14 +88,14 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
 
         <div className="flex flex-col md:flex-row gap-[20px] md:items-center justify-between mt-2 mb:7 md:my-[26px]">
           <p className='hidden sm:block font_calibri text-theme-main text-bold text-[24px] md:text-[40px] leading-[40px] font-bold capitalize'>
-            {selectBaseCategory ? selectBaseCategory.replace(/-/g, " ") : "All Products"}
+            {searchParams?.baseCategory ? searchParams?.baseCategory.replace(/-/g, " ") : "All Products"}
           </p>
 
           <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-[24px]">
             <div className="flex gap-2 flex-wrap ">
               <div className="md:hidden relative flex items-center flex-1 lg:flex-auto min-w-[220px]">
                 <Select
-                  value={selectBaseCategory}
+                  value={searchParams?.baseCategory}
                   placeholder='Secondary Category'
                   onChange={(e) => handleSelectCategory(e)}
                   options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
@@ -103,7 +103,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
               </div>
               <div className="flex-1 min-w-[220px] lg:w-[297px]">
                 <Select
-                  value={selectBaseCategory}
+                  value={searchParams?.baseCategory}
                   placeholder='Secondary Category'
                   onChange={(e) => handleSelectCategory(e)}
                   options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
@@ -111,19 +111,12 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
               </div>
               <div className="flex-1 min-w-[220px] lg:min-w-[297px]">
                 <Select
-                  value={selectBaseCategory}
+                  value={searchParams?.baseCategory}
                   placeholder='General Category'
                   onChange={(e) => handleSelectCategory(e)}
                   options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
                 />
               </div>
-              {/* <RightDrawer
-                categories={categories}
-                specificCategorries={specificCategorries}
-                setProducts={setProducts}
-                currentPageIndex={currentPageIndex}
-                setTotalProducts={setTotalProducts}
-              /> */}
             </div>
           </div>
         </div>
@@ -139,6 +132,10 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
           />
         </div>
       </div>
+      {
+        isLoading &&
+        <FullPageLoader />
+      }
     </main>
   )
 }
