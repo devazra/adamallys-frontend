@@ -75,8 +75,8 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
             </div>
             <div className="hidden md:block relative flex items-center lg:flex-auto min-w-[220px] max-w-[297px] lg:w-[297px]">
               <Select
-                value={searchParams?.baseCategory}
                 placeholder='Base Category'
+                value={searchParams?.baseCategory}
                 onChange={(e) => handleSelectCategory(e)}
                 options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
               />
@@ -95,6 +95,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
             <div className="flex gap-2 flex-wrap ">
               <div className="md:hidden relative flex items-center flex-1 lg:flex-auto min-w-[220px]">
                 <Select
+                  isSearchAble
                   value={searchParams?.baseCategory}
                   placeholder='Secondary Category'
                   onChange={(e) => handleSelectCategory(e)}
@@ -103,7 +104,8 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
               </div>
               <div className="flex-1 min-w-[220px] lg:w-[297px]">
                 <Select
-                  value={searchParams?.baseCategory}
+                  isSearchAble
+                  value={searchParams?.secondaryCategory}
                   placeholder='Secondary Category'
                   onChange={(e) => handleSelectCategory(e)}
                   options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
@@ -111,10 +113,11 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
               </div>
               <div className="flex-1 min-w-[220px] lg:min-w-[297px]">
                 <Select
-                  value={searchParams?.baseCategory}
+                  isSearchAble
+                  value={searchParams?.generalCategory}
                   placeholder='General Category'
                   onChange={(e) => handleSelectCategory(e)}
-                  options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
+                  options={categories?.map((item) => ({ value: item?.attributes?.Slug, label: item?.attributes?.Name }))}
                 />
               </div>
             </div>
