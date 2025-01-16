@@ -5,13 +5,18 @@ import ChooseAdamallys from '@/components/choose-adamallys/choose-adamallys'
 import OtherServices from "@/components/other-services-slider/OtherServices"
 
 const IndustrialEnergy = (props) => {
-  const { title, info, video_title, Video, Our_Key_Product_Offerings, OtherServices: otherServicesData } = props;
+  const { title, info, video_title, Video, KeyProducts, Our_Key_Product_Offerings, OtherServices: otherServicesData } = props;
+  console.log("🚀 ~ IndustrialEnergy ~ KeyProducts:", KeyProducts)
   const data = Our_Key_Product_Offerings?.map?.((offer) => (
     {
       title: offer?.title,
       content: offer?.info
     }
   ))
+
+
+
+
   return (
     <>
       <div className="mb-24" />
@@ -45,7 +50,29 @@ const IndustrialEnergy = (props) => {
           </p>
           <p className="text-[25px] md:text-[40px] text-center md:text-left font_calibri leading-[45px] font-bold text-theme-main">Our Key Product Offerings</p>
           <div className='md:mt-[30px] mb-0 mt-[30px] w-full h-[1px] bg-[#B2B6E0]' />
-          <Accordion data={data} isFirstOpen isProductAndServices />
+          <div className=''>
+            {
+              KeyProducts?.map((item, idx) => (
+                item?.__component === "cards.ie-content" ?
+                  <div className='py-[20px] border-[#B2B6E0] border-b'>
+                    <h4 key={idx} className='text-[#2E368F] font-bold text-lg mb-1'>{item?.Title}</h4>
+                    <p className='text-lg font-light'>{item?.Caption}</p>
+                  </div> : <div className='py-[20px] border-[#B2B6E0] border-b'>
+                    <h4 key={idx} className='text-[#2E368F] font-bold text-lg mb-1'>{item?.Title}</h4>
+                    <ul className=''>
+                      {
+                        item?.List?.map((item, id) => (
+                          <li key={id}>
+                            <strong>{item?.Label}</strong>
+                            <span className='font-light text-lg'>{item?.list}</span>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+              ))
+            }
+          </div>
         </div>
       </section>
       <ChooseAdamallys />
@@ -55,3 +82,4 @@ const IndustrialEnergy = (props) => {
 }
 
 export default IndustrialEnergy
+
