@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const AccordionItem = ({ isHeader, isFooter, title, content, isOpen, onToggle, hideToggle, isProductAndServices }) => {
   return (
-    <div className={`${isFooter && 'pb-3'} border-b border-[#8B8B8B80]`}>
+    <div className={`${isFooter ? 'pb-3' : ''} ${(!isHeader || isOpen) && 'border-b border-[#8B8B8B80]'}`}>
       <button
         className={`w-full text-left ${isProductAndServices ? `${isOpen ? 'pb-[20px]' : 'pb-[18px] lg:pb-[30px]'} pt-[18px] lg:pt-[30px]` : (isHeader || hideToggle || isFooter) ? 'pt-4' : 'p-4 hover:bg-gray-100'} focus:outline-none`}
         onClick={onToggle}

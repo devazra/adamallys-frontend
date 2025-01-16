@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { renderRichText } from '@/components/our-company/our-company';
 
-const NewsAndEventDetailsTemplate = ({ data, content }) => {
+const NewsAndEventDetailsTemplate = ({ data, content = {} }) => {
   const { id, attributes } = content
   const [nextNews, setNextNews] = useState()
   const [prevNews, setPrevNews] = useState()

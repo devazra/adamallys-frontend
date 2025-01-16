@@ -35,7 +35,7 @@ const ShipSupply = (props) => {
         </div>
         <GridBanner />
       </section>
-      <section className="mt-4 md:mt-14 container px-[18px] xl:px-0 mx-auto flex flex-col md:flex-row gap-5 md:gap-[49px] mb-10 md:mb-20">
+      <section className="mt-4 md:mt-14 container px-[18px] xl:px-0 mx-auto flex flex-col md:flex-row gap-5 md:gap-[49px] mb-4 md:mb-20">
         <div className='md:w-[30%]'>
           <div className='md:sticky md:top-[110px] mt-[-14px]'>
             <h2 className='text-3xl md:text-5xl lg:text-6xl font_calibri text-theme-main font-bold flex flex-col justify-center items-center md:items-start md:text-left md:justify-start'>{title}</h2>
@@ -47,7 +47,7 @@ const ShipSupply = (props) => {
         <div className='md:w-[70%]'>
           <div className='w-full h-[1px] bg-[#9F9F9F] mt-[30px] my-[15px] md:mb-0 md:py-0 md:hidden' />
           <div className='flex flex-col md:gap-10'>
-            <div className='w-full h-[1px] bg-[#9F9F9F]' />
+            <div className='w-full h-[1px] bg-[#9F9F9F] hidden md:block' />
             {
               Product_and_service?.map?.((item, idx) => (
                 <div key={idx}>
