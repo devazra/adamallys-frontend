@@ -1,4 +1,3 @@
-import Accordion from '@/components/Accordion'
 import GridBanner from '@/components/hero/grid-banner'
 import IndustrialEnergyComp from '@/components/IndustrialEngery'
 import ChooseAdamallys from '@/components/choose-adamallys/choose-adamallys'
@@ -6,15 +5,6 @@ import OtherServices from "@/components/other-services-slider/OtherServices"
 
 const IndustrialEnergy = (props) => {
   const { title, info, video_title, Video, KeyProducts, Our_Key_Product_Offerings, OtherServices: otherServicesData } = props;
-  console.log("🚀 ~ IndustrialEnergy ~ KeyProducts:", KeyProducts)
-  const data = Our_Key_Product_Offerings?.map?.((offer) => (
-    {
-      title: offer?.title,
-      content: offer?.info
-    }
-  ))
-
-
 
 
   return (
