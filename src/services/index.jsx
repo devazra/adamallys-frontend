@@ -241,6 +241,16 @@ async function getWhyChoose() {
   return responce.data?.attributes
 }
 
+async function getSecondaryCategories() {
+  const params = qs.stringify({
+    populate: [
+      'products', "base_category", "general_category"
+    ],
+  })
+  const responce = await Axios(`/secondary-category?${params}`);
+  return responce.data?.attributes
+}
+
 async function getPrivacyPolicy() {
   const responce = await Axios(`/privacy-policy-page?populate=*`);
   return responce.data?.attributes
@@ -271,5 +281,6 @@ export {
   getWhyChoose,
   getPrivacyPolicy,
   getPorts,
-  getSingleNewsAndEvents
+  getSingleNewsAndEvents,
+  getSecondaryCategories
 }

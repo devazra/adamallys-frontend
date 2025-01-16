@@ -4,7 +4,7 @@ import ChooseAdamallys from '@/components/choose-adamallys/choose-adamallys'
 import OtherServices from "@/components/other-services-slider/OtherServices"
 
 const IndustrialEnergy = (props) => {
-  const { title, info, video_title, Video, KeyProducts, Our_Key_Product_Offerings, OtherServices: otherServicesData } = props;
+  const { title, info, video_title, Video, KeyProducts, OtherServices: otherServicesData } = props;
 
 
   return (
