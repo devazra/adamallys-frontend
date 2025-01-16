@@ -20,7 +20,7 @@ export default async function Home() {
         style={{ background: 'linear-gradient(to right,rgba(23, 31, 124, 1), rgba(23, 31, 124, 0))' }}
       />
       <div className="my:6 lg:my-[56px] flex flex-col gap-6 lg:gap-10">
-        <div className="sticky top-[90px]">
+        <div className="lg:sticky top-[90px]">
           <TwoColumnContent
             zeroGap
             hideButton
@@ -30,7 +30,7 @@ export default async function Home() {
             points={data?.Cards?.[0]?.lists?.map(({ list }) => list)}
           />
         </div>
-        <div className="sticky top-[90px]">
+        <div className="lg:sticky top-[90px]">
           <TwoColumnContent
             invert
             bgGray
@@ -42,7 +42,7 @@ export default async function Home() {
             image={data?.Cards?.[1]?.image?.data?.attributes?.url}
             points={data?.Cards?.[1]?.lists?.map(({ list }) => list)}
           /></div>
-        <div className="sticky top-[90px]">
+        <div className="lg:sticky top-[90px]">
           <TwoColumnContent
             zeroGap
             hideButton
