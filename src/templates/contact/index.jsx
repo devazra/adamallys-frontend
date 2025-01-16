@@ -16,6 +16,12 @@ const defaultValues = {
 const ContactTemplate = (props) => {
   const { AddressOne, AddressTwo, Email, Fax, MobileNumber, Buttons } = props.data;
   const [formData, setFormData] = useState(defaultValues);
+  const [formErrors, setFormErrors] = useState({});
+
+  const requiredFields = [
+    { field: 'email', message: 'Email is required!' },
+    { field: 'message', message: 'Message is required!' },
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +42,18 @@ const ContactTemplate = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let errors = {};
+    for (let { field, message } of requiredFields) {
+      if (!formData?.[field]) {
+        errors[field] = message;
+      }
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
     try {
       const response = await axios.post(`/api/contact-mail`, formData);
       if (response?.status === 200) {
@@ -121,17 +139,22 @@ const ContactTemplate = (props) => {
                     name="phoneNumber"
                     value={formData.phoneNumber}
                     placeholder="Phone Number"
-                    className="w-full h-[55px] py-1 bg-transparent border-b border-theme-main focus:outline-none text-theme-main focus:text-theme-main"
+                    className="w-full flex-1 h-[55px] py-1 bg-transparent border-b border-theme-main focus:outline-none text-theme-main focus:text-theme-main"
                     onChange={handlePhoneChange}
                   />
+                 <div className='flex-1'>
                   <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    placeholder="Email"
-                    className="w-full h-[55px] py-1 bg-transparent border-b border-theme-main focus:outline-none text-theme-main focus:text-theme-main"
-                    onChange={handleChange}
-                  />
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      placeholder="Email"
+                      className="w-full h-[55px] py-1 bg-transparent border-b border-theme-main focus:outline-none text-theme-main focus:text-theme-main"
+                      onChange={handleChange}
+                    />
+                    {formErrors.email && (
+                      <p className="text-red-600 text-sm mt-1">{formErrors.email}</p>
+                    )}
+                 </div>
                 </div>
                 <div className='flex flex-col sm:flex-row gap:3 md:gap-6'>
                   <textarea
@@ -144,6 +167,9 @@ const ContactTemplate = (props) => {
                     onChange={handleChange}
                   />
                 </div>
+                  {formErrors.message && (
+                      <p className="text-red-600 text-sm mt-1">{formErrors.message}</p>
+                  )}
               </div>
 
               <div className="flex justify-center items-center gap-[8px] mt-[23px]">
