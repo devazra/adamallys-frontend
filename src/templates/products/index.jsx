@@ -1,16 +1,16 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { CiCircleInfo } from "react-icons/ci";
+import Select from '@/components/Select';
 import Pagination from '@/components/Pagination';
 import RightDrawer from '@/components/RightDrawer';
-import ProductCard from '@/components/ProductCard';
 import { useRouter, useSearchParams } from 'next/navigation';
+import ProductListing from '../../components/ProductListing';
 
-const itemsPerPage = 20;
+const itemsPerPage = 50;
 
 const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorries, grandTotal, currentPageIndex }) => {
-  
+
   const params = useSearchParams()
   const pageNo = params.get('page')
 
@@ -31,7 +31,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
     }
     const searchedProducts = data?.filter((item) =>
       item.attributes.Title.toLowerCase().includes(value.toLowerCase())
-  );
+    );
     setProducts(searchedProducts);
   };
 
@@ -52,46 +52,35 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
       <div className='md:pt-[20px] md:pb-[60px] px-[18px] xl:px-0'>
         <h1 className='font_calibri capitalize text-[25px] md:text-[60px] leading-[60px] text-center font-bold text-theme-main'>Products</h1>
         <div className='w-[49px] h-[2px] bg-[#8B8B8B] md:hidden mx-auto' />
-        <div className="flex flex-wrap lg:flex-nowrap items-center gap-[12px] mt-3 md:mt-[42px]">
-          <p className='font_calibri mx-auto max-w-[276px] md:max-w-full text-center md:text-left text-[12px] capitalize md:text-lg leading-[18px] md:leading-[26px] text-theme-main md:mr-[40px]'>
-            Please use the search to filter the products. Please be patient as it has {grandTotal} products listed.
+        <div className="flex flex-wrap lg:flex-nowrap justify-between items-center gap-[12px] mt-3 md:mt-[42px]">
+          <p className='font_calibri max-w-[276px] md:max-w-full text-center md:text-left text-[12px] md:text-lg leading-[18px] md:leading-[26px] text-theme-main md:mr-[40px]'>
+            Please use the search to filter the products.
           </p>
-          <div className="relative flex items-center flex-1 lg:flex-auto min-w-[220px]">
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => handleSearch(e)}
-              className="w-full lg:max-w-[414px] h-[55px] p-2 border border-theme-main focus:outline-none text-theme-main focus:text-theme-main"
-            />
-
-            <Image
-              width={24}
-              height={24}
-              alt='search-icon'
-              src='/svg/search.svg'
-              className='absolute right-2'
-            />
-          </div>
-          <div className="hidden md:block relative flex items-center flex-1 lg:flex-auto min-w-[220px]">
-            <select
-              value={selectBaseCategory}
-              onChange={(e) => handleSelectCategory(e)}
-              className="w-full lg:max-w-[414px] h-[55px] px-2 py-2 border border-theme-main focus:outline-none text-theme-main focus:text-theme-main appearance-none"
-              style={{
-                background: 'url(/svg/arrow_drop_down.svg) no-repeat right 10px center',
-                backgroundSize: '15px 7.5px',
-              }}
-            >
-              <option value="" disabled selected>
-                Select Category
-              </option>
-              {
-                baseCategorries?.map((item, idx) => (
-                  <option value={item?.Slug} key={idx}>{item?.Name}</option>
-                ))
-              }
-            </select>
+          <div className="flex gap-3 justify-end flex-1 md:flex-auto">
+            <div className="w-full max-w-[414px] lg:w-[414px] relative bg-[red] flex items-center lg:flex-auto min-w-[220px]">
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e)}
+                className="w-full lg:w-[414px] h-[55px] p-2 border border-theme-main focus:outline-none text-theme-main focus:text-theme-main"
+              />
+              <Image
+                width={24}
+                height={24}
+                alt='search-icon'
+                src='/svg/search.svg'
+                className='absolute right-2'
+              />
+            </div>
+            <div className="hidden md:block relative flex items-center lg:flex-auto min-w-[220px] max-w-[297px] lg:w-[297px]">
+              <Select
+                value={selectBaseCategory}
+                placeholder='Base Category'
+                onChange={(e) => handleSelectCategory(e)}
+                options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
+              />
+            </div>
           </div>
         </div>
 
@@ -103,57 +92,51 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
           </p>
 
           <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-[24px]">
-            <p className='text-theme-main text-base md:text-lg md:leading-[26px] font_calibri'>{data?.meta?.pagination?.total} Results</p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap ">
               <div className="md:hidden relative flex items-center flex-1 lg:flex-auto min-w-[220px]">
-                <select
+                <Select
                   value={selectBaseCategory}
+                  placeholder='Secondary Category'
                   onChange={(e) => handleSelectCategory(e)}
-                  className="w-full lg:max-w-[414px] h-[55px] px-2 py-2 border border-theme-main focus:outline-none text-theme-main focus:text-theme-main appearance-none"
-                  style={{
-                    background: 'url(/svg/arrow_drop_down.svg) no-repeat right 10px center',
-                    backgroundSize: '15px 7.5px',
-                  }}
-                >
-                  <option value="" disabled selected>
-                    Select Category
-                  </option>
-                  {
-                    baseCategorries?.map((item, idx) => (
-                      <option value={item?.Slug} key={idx}>{item?.Name}</option>
-                    ))
-                  }
-                </select>
+                  options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
+                />
               </div>
-              <RightDrawer
+              <div className="flex-1 min-w-[220px] lg:w-[297px]">
+                <Select
+                  value={selectBaseCategory}
+                  placeholder='Secondary Category'
+                  onChange={(e) => handleSelectCategory(e)}
+                  options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
+                />
+              </div>
+              <div className="flex-1 min-w-[220px] lg:min-w-[297px]">
+                <Select
+                  value={selectBaseCategory}
+                  placeholder='General Category'
+                  onChange={(e) => handleSelectCategory(e)}
+                  options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
+                />
+              </div>
+              {/* <RightDrawer
                 categories={categories}
                 specificCategorries={specificCategorries}
                 setProducts={setProducts}
                 currentPageIndex={currentPageIndex}
                 setTotalProducts={setTotalProducts}
-              />
+              /> */}
             </div>
           </div>
         </div>
 
         <div className='hidden md:block w-full h-[0.5px] bg-theme-main' />
-        <p className='flex items-center gap-2 text-[#2E368F] text-xs mt-[20px]'>
-          <CiCircleInfo /> <span>Note: Images are for illustrative purposes only. Brands and trademarks shown may not be sold, distributed, or affiliated with Adamallys LLC.</span>
-        </p>
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-[9px]  mt-[30px]'>
-          {products?.map((product, index) =>
-            <ProductCard key={index} {...product.attributes} />
-          )}
-        </div>
+        <ProductListing products={products} />
         <div className="my-[38px]">
-          {/* {(products?.data > 19) && */}
           <Pagination
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
             totalItems={data?.meta?.pagination?.total}
             onPageChange={setCurrentPage}
           />
-          {/* } */}
         </div>
       </div>
     </main>
