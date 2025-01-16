@@ -56,7 +56,7 @@ const MobileHeader = ({ NavLinks }) => {
       className={`${(scrollPosition < 100 && pathname === "/") ? "header-gradient" : "bg-white"} fixed z-[200] top-0 xl:hidden top-0 w-full z-[50]`}
     >
       <div>
-        <div className="border-b-[1px] pl-[18px] item-center border-[#969cc0] flex justify-between w-full">
+        <div className="pl-[18px] item-center flex justify-between w-full">
           <Logo />
           <div className="!bg-[#2E368F] w-[68px] h-[65px] flex justify-center items-center" onClick={() => setOpenMobileNav(!openMobileNav)}>
             {openMobileNav ? <XIcon /> : <MenuIcon />}
