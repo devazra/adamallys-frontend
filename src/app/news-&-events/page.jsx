@@ -5,13 +5,13 @@ import Card from "@/components/news-events/card";
 export default async function News() {
   const data = await getNewsAndEvents();
 
-  const newsData = data?.data?.map(({ attributes }) => ({
+  const newsData = data?.map(({ attributes }) => ({
     slug: attributes?.Slug,
     title: attributes?.title,
     date: attributes?.Date,
     excerpt: attributes?.Excerpt,
     image: attributes?.Image?.data?.attributes?.url,
-  })) || [];
+  })) || [];  
 
   const sortedNewsData = newsData?.sort((a, b) => new Date(b.date) - new Date(a.date));
 
