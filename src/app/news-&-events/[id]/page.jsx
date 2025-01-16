@@ -7,7 +7,7 @@ const NewsAndEventDetails = async ({ params }) => {
 
     return (
         <>
-            <NewsAndEventDetailsTemplate data={data?.data} content={content?.[0]} />
+            <NewsAndEventDetailsTemplate data={data} content={content?.[0]}/>
         </>
     )
 }
