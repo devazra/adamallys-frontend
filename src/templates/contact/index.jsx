@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
 import MapComponent from '@/components/MapComponent';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const defaultValues = {
   name: '',
@@ -13,7 +15,6 @@ const defaultValues = {
 
 const ContactTemplate = (props) => {
   const { AddressOne, AddressTwo, Email, Fax, MobileNumber, Buttons } = props.data;
-  console.log("🚀 ~ ContactTemplate ~ Buttons:", Buttons)
   const [formData, setFormData] = useState(defaultValues);
 
   const handleChange = (e) => {
@@ -33,9 +34,20 @@ const ContactTemplate = (props) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await axios.post(`/api/contact-mail`, formData);
+      if (response?.status === 200) {
+        toast.success('Email sended successfully!')
+        setFormData({ ...defaultValues })
+      } else {
+        toast.error("Something went wrong!")
+      }
+    } catch (error) {
+      console.log("🚀 ~ handleSubmit ~ error:", error)
+      toast.error("Something went wrong!")
+    }
   };
 
   return (
