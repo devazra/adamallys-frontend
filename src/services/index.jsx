@@ -132,7 +132,7 @@ async function getHeader() {
 async function getIndustrialEnergy() {
   const params = qs.stringify({
     populate: [
-      'Video', 'Our_Key_Product_Offerings', 'OtherServices.Image', 'OtherServices.Services'
+      'Video', 'KeyProducts','KeyProducts.List' ,'OtherServices.Image', 'OtherServices.Services'
     ],
   })
   const responce = await Axios(`/industrial-and-energy-sector-supplies-page?${params}`);
