@@ -37,7 +37,7 @@ const ShipSupply = (props) => {
       </section>
       <section className="mt-4 md:mt-14 container px-[18px] xl:px-0 mx-auto flex flex-col md:flex-row gap-5 md:gap-[49px] mb-10 md:mb-20">
         <div className='md:w-[30%]'>
-          <div className='md:sticky md:top-20 mt-[-14px]'>
+          <div className='md:sticky md:top-[110px] mt-[-14px]'>
             <h2 className='text-3xl md:text-5xl lg:text-6xl font_calibri text-theme-main font-bold flex flex-col justify-center items-center md:items-start md:text-left md:justify-start'>{title}</h2>
             <div className='ship_supply_content font_calibri mt-4 text-[#3E3E3E] md:text-lg font-light leading-[26px] text-center md:text-left text-xs'>
               {text}
