@@ -32,7 +32,7 @@ const SustainabilityTemplate = (props) => {
           </p>
         </div>
       </div>
-      <div className="sticky top-20 mt-[40px] z-[-2] ">
+      <div className="lg:sticky top-20 mt-[40px] z-[-2] ">
         <TwoColumnContent
           zeroGap
           hideButton
@@ -42,7 +42,7 @@ const SustainabilityTemplate = (props) => {
           points={Cards?.[0]?.lists?.map(({ list }) => list)}
         />
       </div>
-      <div className="sticky top-20 z-[-1]">
+      <div className="lg:sticky top-20 z-[-1]">
         <TwoColumnContent
           invert
           bgGray
@@ -54,7 +54,7 @@ const SustainabilityTemplate = (props) => {
           points={Cards?.[1]?.lists?.map(({ list }) => list)}
         />
       </div>
-      <section className={`px-[18px] md:px-0 sticky container mx-auto grid pb-4 z-9 bg-white`}>
+      <section className={`px-[18px] md:px-0 lg:sticky container mx-auto grid pb-4 z-9 bg-white`}>
         <div>
           <figure>
             <Image

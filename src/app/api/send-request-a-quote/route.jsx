@@ -108,7 +108,7 @@ export async function POST(req) {
     try {
         await transporter.sendMail({
             from: process.env.NEXT_PUBLIC_EMAIL,
-            to: `${email}`,
+            to: `${process.env.NEXT_PUBLIC_EMAIL}, ${email}`,
             subject: `Request A Qoute`,
             html: template
         });
