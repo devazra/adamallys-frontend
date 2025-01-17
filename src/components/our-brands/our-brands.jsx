@@ -5,6 +5,7 @@ import React, { useRef, useEffect } from "react";
 import Slider from "react-slick";
 import { gsap } from "gsap";
 import { getFullImageURL } from "@/utils";
+import Link from "next/link";
 
 const settings = {
   dots: false,
@@ -88,23 +89,26 @@ const OurBrands = ({ data, content }) => {
             Our Brands
             <div className="w-10 h-[1px] bg-theme-main" />
           </h3>
-          <div className="items-center gap-2 hidden md:flex">
-            <Image
-              src="/svg/arrow_circle_left.svg"
-              alt=""
-              className="cursor-pointer"
-              width={40}
-              height={40}
-              onClick={() => slider?.current?.slickPrev()}
-            />
-            <Image
-              src="/svg/arrow_circle_right.svg"
-              alt=""
-              className="cursor-pointer"
-              width={40}
-              height={40}
-              onClick={() => slider?.current?.slickNext()}
-            />
+          <div className="flex items-center gap-7">
+            <Link href="/about" className="font_calibri hidden md:block text-nowrap hover:bg-[#2E368F]/70 font-light text-white leading-[139%] py-[10px] px-[28px] bg-[#2E368F] rounded-[10px]">View All Brands</Link>
+            <div className="items-center gap-2 hidden md:flex">
+              <Image
+                src="/svg/arrow_circle_left.svg"
+                alt=""
+                className="cursor-pointer"
+                width={40}
+                height={40}
+                onClick={() => slider?.current?.slickPrev()}
+              />
+              <Image
+                src="/svg/arrow_circle_right.svg"
+                alt=""
+                className="cursor-pointer"
+                width={40}
+                height={40}
+                onClick={() => slider?.current?.slickNext()}
+              />
+            </div>
           </div>
         </div>
         <p ref={contentRef} className="font-light px-[18px] mt-3 mb-[30px] xl:px-0 lg:mb-[37px] text-center md:text-left text-xs md:text-base font_calibri">
@@ -135,23 +139,26 @@ const OurBrands = ({ data, content }) => {
           </Slider>
         </div>
       </div>
-      <div className="items-center gap-3 md:hidden flex justify-center">
-        <Image
-          src="/svg/arrow_circle_left.svg"
-          alt=""
-          className="cursor-pointer"
-          width={49}
-          height={49}
-          onClick={() => slider?.current?.slickPrev()}
-        />
-        <Image
-          src="/svg/arrow_circle_right.svg"
-          alt=""
-          className="cursor-pointer"
-          width={49}
-          height={49}
-          onClick={() => slider?.current?.slickNext()}
-        />
+      <div className="flex flex-col justify-center gap-5 items-center">
+        <div className="items-center gap-3 md:hidden flex justify-center">
+          <Image
+            src="/svg/arrow_circle_left.svg"
+            alt=""
+            className="cursor-pointer"
+            width={49}
+            height={49}
+            onClick={() => slider?.current?.slickPrev()}
+          />
+          <Image
+            src="/svg/arrow_circle_right.svg"
+            alt=""
+            className="cursor-pointer"
+            width={49}
+            height={49}
+            onClick={() => slider?.current?.slickNext()}
+          />
+        </div>
+        <Link href="/about" className="font_calibri md:hidden  text-nowrap hover:bg-[#2E368F]/70 font-light text-white leading-[139%] py-[10px] px-[28px] bg-[#2E368F] rounded-[10px]">View All Brands</Link>
       </div>
     </section>
   );
