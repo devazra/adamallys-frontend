@@ -16,7 +16,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCate
 
   const [currentPage, setCurrentPage] = useState(searchParams?.page ? searchParams?.page : 1);
   const [products, setProducts] = useState(data?.data || []);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [searchQuery, setSearchQuery] = useState('');
 
   const router = useRouter()
@@ -169,7 +169,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCate
         </div>
 
         <div className='hidden md:block w-full h-[0.5px] bg-theme-main' />
-        <ProductListing products={products} />
+        <ProductListing products={products} searchParams={searchParams} />
         <div className="my-[38px]">
           <Pagination
             currentPage={currentPage}
