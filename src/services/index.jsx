@@ -132,7 +132,7 @@ async function getHeader() {
 async function getIndustrialEnergy() {
   const params = qs.stringify({
     populate: [
-      'Video', 'KeyProducts','KeyProducts.List' ,'OtherServices.Image', 'OtherServices.Services'
+      'Video', 'KeyProducts', 'KeyProducts.List', 'OtherServices.Image', 'OtherServices.Services'
     ],
   })
   const responce = await Axios(`/industrial-and-energy-sector-supplies-page?${params}`);
@@ -247,8 +247,8 @@ async function getSecondaryCategories() {
       'products', "base_category", "general_category"
     ],
   })
-  const responce = await Axios(`/secondary-category?${params}`);
-  return responce.data?.attributes
+  const responce = await Axios(`/secondary-categories?${params}`);
+  return responce?.data || [];
 }
 
 async function getPrivacyPolicy() {

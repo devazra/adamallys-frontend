@@ -2,6 +2,7 @@ import GridBanner from '@/components/hero/grid-banner'
 import IndustrialEnergyComp from '@/components/IndustrialEngery'
 import ChooseAdamallys from '@/components/choose-adamallys/choose-adamallys'
 import OtherServices from "@/components/other-services-slider/OtherServices"
+import Accordion from '@/components/Accordion'
 
 const IndustrialEnergy = (props) => {
   const { title, info, video_title, Video, KeyProducts, OtherServices: otherServicesData } = props;
@@ -41,27 +42,30 @@ const IndustrialEnergy = (props) => {
           <p className="text-[25px] md:text-[40px] text-center md:text-left font_calibri leading-[45px] font-bold text-theme-main">Our Key Product Offerings</p>
           <div className='md:mt-[30px] mb-0 mt-[30px] w-full h-[1px] bg-[#B2B6E0]' />
           <div className=''>
-            {
-              KeyProducts?.map((item, idx) => (
-                item?.__component === "cards.ie-content" ?
-                  <div className='py-[20px] border-[#B2B6E0] border-b'>
-                    <h4 key={idx} className='text-[#2E368F] font-bold text-lg mb-1'>{item?.Title}</h4>
-                    <p className='text-lg font-light'>{item?.Caption}</p>
-                  </div> : <div className='py-[20px] border-[#B2B6E0] border-b'>
-                    <h4 key={idx} className='text-[#2E368F] font-bold text-lg mb-1'>{item?.Title}</h4>
-                    <ul className=''>
-                      {
-                        item?.List?.map((item, id) => (
-                          <li key={id}>
-                            <strong>{item?.Label}</strong>
-                            <span className='font-light text-lg'>{item?.list}</span>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-              ))
-            }
+            <Accordion
+              data={
+                KeyProducts?.map((item, idx) => (
+                  {
+                    title: item?.Title,
+                    content: (
+                      item?.__component === "cards.ie-content" ?
+                        <p className='text-lg font-light'>{item?.Caption}</p>
+                        :
+                        <ul className=''>
+                          {
+                            item?.List?.map((item, id) => (
+                              <li key={id}>
+                                <strong>{item?.Label}</strong>
+                                <span className='font-light text-lg'>{item?.list}</span>
+                              </li>
+                            ))
+                          }
+                        </ul>
+                    )
+                  }
+                ))
+              }
+            />
           </div>
         </div>
       </section>

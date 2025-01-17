@@ -9,13 +9,13 @@ import ProductListing from '../../components/ProductListing';
 
 const itemsPerPage = 50;
 
-const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorries, searchParams }) => {
+const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCategory, baseCategorries, searchParams }) => {
 
   const params = useSearchParams()
-  const pageNo = params.get('page')
+  const pageNo = params.get('page');
 
   const [currentPage, setCurrentPage] = useState(searchParams?.page ? searchParams?.page : 1);
-  const [products, setProducts] = useState(data);
+  const [products, setProducts] = useState(data?.data || []);
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -25,25 +25,47 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
     const value = e.target.value;
     setSearchQuery(value);
     if (!value) {
-      setProducts(data);
+      setProducts(data?.data || []);
       return;
     }
-    const searchedProducts = data?.filter((item) =>
-      item.attributes.Title.toLowerCase().includes(value.toLowerCase())
+    const searchedProducts = data?.data?.filter((item) =>
+      item?.attributes?.Title?.toLowerCase()?.includes(value.toLowerCase())
     );
     setProducts(searchedProducts);
   };
 
-  const handleSelectCategory = (e) => {
-    const q = pageNo ?
-      `?baseCategory=${e.target.value}&page=1` :
-      `?baseCategory=${e.target.value}`
+  const handleFilter = (e) => {
+    const { name, value } = e?.target;
+    const params = { ...searchParams, page: 1, [name]: value };
+
+    const objToQuery = Object.keys(params)
+      .filter(key => params[key])
+      .map((key) => `${key}=${params[key]}`)
+      .join('&');
+
+    const q = `?${objToQuery}`;
+
     router.push(q);
     setIsLoading(true);
   }
 
+  const handleClearFilter = (e) => {
+    const { name } = e?.target;
+    let params = { ...searchParams, page: 1, [name]: "" };
+
+    delete params?.[name];
+
+    const objToQuery = Object.keys(params)
+      .filter(key => params[key])
+      .map((key) => `${key}=${params[key]}`)
+      .join('&');
+
+    const q = `?${objToQuery}`;
+    router.push(q);
+  };
+
   useEffect(() => {
-    setProducts(data);
+    setProducts(data?.data || []);
     setIsLoading(false);
   }, [data]);
 
@@ -60,10 +82,11 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
             <div className="w-full max-w-[414px] lg:w-[414px] relative bg-[red] flex items-center lg:flex-auto min-w-[220px]">
               <input
                 type="text"
-                placeholder="Search"
+                name='searchQuery'
                 value={searchQuery}
-                onChange={(e) => handleSearch(e)}
-                className="w-full lg:w-[414px] h-[55px] p-2 border border-theme-main focus:outline-none text-theme-main focus:text-theme-main"
+                placeholder="Search"
+                onChange={handleSearch}
+                className="w-full lg:w-[414px] h-[55px] p-2 px-6 text-lg border border-theme-main focus:outline-none text-theme-main focus:text-theme-main"
               />
               <Image
                 width={24}
@@ -75,10 +98,14 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
             </div>
             <div className="hidden md:block relative flex items-center lg:flex-auto min-w-[220px] max-w-[297px] lg:w-[297px]">
               <Select
+                name="baseCategory"
+                onChange={handleFilter}
+                onClear={handleClearFilter}
                 placeholder='Base Category'
                 value={searchParams?.baseCategory}
-                onChange={(e) => handleSelectCategory(e)}
-                options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
+                options={baseCategorries?.map((item) =>
+                  ({ value: item?.Slug, label: item?.Name })
+                )}
               />
             </div>
           </div>
@@ -95,29 +122,46 @@ const ProductsTemplate = ({ data, categories, specificCategorries, baseCategorri
             <div className="flex gap-2 flex-wrap ">
               <div className="md:hidden relative flex items-center flex-1 lg:flex-auto min-w-[220px]">
                 <Select
-                  isSearchAble
+                  name="baseCategory"
+                  onChange={handleFilter}
+                  onClear={handleClearFilter}
+                  placeholder='Base Category'
                   value={searchParams?.baseCategory}
-                  placeholder='Secondary Category'
-                  onChange={(e) => handleSelectCategory(e)}
-                  options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
+                  options={baseCategorries?.map((item) =>
+                  ({ value: item?.Slug, label: item?.Name }
+                  ))}
                 />
               </div>
               <div className="flex-1 min-w-[220px] lg:w-[297px]">
                 <Select
                   isSearchAble
-                  value={searchParams?.secondaryCategory}
+                  onChange={handleFilter}
+                  onClear={handleClearFilter}
+                  name="secondaryCategory"
                   placeholder='Secondary Category'
-                  onChange={(e) => handleSelectCategory(e)}
-                  options={baseCategorries?.map((item) => ({ value: item?.Slug, label: item?.Name }))}
+                  value={searchParams?.secondaryCategory}
+                  options={secondaryCategory?.map((item) =>
+                  ({
+                    value: item?.attributes?.Slug,
+                    label: item?.attributes?.Name
+                  }
+                  ))}
                 />
               </div>
               <div className="flex-1 min-w-[220px] lg:min-w-[297px]">
                 <Select
                   isSearchAble
-                  value={searchParams?.generalCategory}
+                  name="generalCategory"
+                  onChange={handleFilter}
+                  onClear={handleClearFilter}
                   placeholder='General Category'
-                  onChange={(e) => handleSelectCategory(e)}
-                  options={categories?.map((item) => ({ value: item?.attributes?.Slug, label: item?.attributes?.Name }))}
+                  value={searchParams?.generalCategory}
+                  options={categories?.map((item) =>
+                  ({
+                    value: item?.attributes?.Slug,
+                    label: item?.attributes?.Name
+                  }
+                  ))}
                 />
               </div>
             </div>

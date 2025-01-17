@@ -1,4 +1,5 @@
 import { Axios } from '@/config/Axios';
+import { getSecondaryCategories } from '@/services';
 import ProductsTemplate from '@/templates/products'
 import qs from "qs"
 
@@ -45,10 +46,10 @@ async function getProducts(searchParams) {
   const baseCategorries = baseCategorriesRes.data?.map((item) => ({
     Name: item.attributes.Name,
     Slug: item.attributes.Slug
-  }))
+  }));
 
   return {
-    allProducts: responce.data,
+    allProducts: responce,
     categories,
     specificCategorries,
     baseCategorries,
@@ -57,16 +58,17 @@ async function getProducts(searchParams) {
 }
 
 const Products = async ({ searchParams }) => {
-  const { allProducts, categories, specificCategorries, baseCategorries, productLength } = await getProducts(searchParams)
+  const { allProducts, categories, specificCategorries, baseCategorries, productLength } = await getProducts(searchParams);
+  const secondaryCategory = await getSecondaryCategories();
 
   return (
     <ProductsTemplate
       data={allProducts}
       categories={categories}
-      specificCategorries={specificCategorries}
-      baseCategorries={baseCategorries}
-      grandTotal={productLength}
       searchParams={searchParams}
+      baseCategorries={baseCategorries}
+      secondaryCategory={secondaryCategory}
+      specificCategorries={specificCategorries}
     />
   )
 }
