@@ -160,7 +160,7 @@ const ContactTemplate = (props) => {
         <div className='bg-[#4A51A2] px-2 py-8 flex gap-2 flex-wrap justify-center lg:gap-4'>
           {Buttons?.Buttons?.map((item, idx) => (
             <a target="_blank" href={item?.Link || "#"} key={idx}>
-              <button className="py-[6px] font_calibri font-semibold px-4 sm:px-[30px] border border[#FFFFFF] text-[#FFFFFF] leading-[32px] rounded-full w-[242px]">
+              <button className="whitespace-nowrap py-[6px] font_calibri font-semibold px-4 sm:px-[30px] border border[#FFFFFF] text-[#FFFFFF] leading-[32px] rounded-full">
                 {item?.Label}
               </button>
             </a>

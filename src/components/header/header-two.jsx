@@ -42,7 +42,7 @@ const HeaderTwo = ({ data, menuOptions, slideFromTop }) => {
                   :
                   <li key={idx} className="relative group">
                     <Link className="uppercase" href={item?.href} key={idx}>{item?.label}</Link>
-                    <div className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === item?.Link ? 'bg-theme-main' : ''}`} />
+                    <div className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === item?.href ? 'bg-theme-main' : ''}`} />
                   </li>
                 ))}
               </ul>

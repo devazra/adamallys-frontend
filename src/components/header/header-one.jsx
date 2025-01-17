@@ -22,7 +22,7 @@ const HeaderOne = ({ data, menuOptions }) => {
                   className={'uppercase'}
                 >Home</Link>
                 <div
-                  className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === '/' ? 'bg-theme-main' : ''}`}
+                  className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${(!pathname || pathname === '/') ? 'bg-theme-main' : ''}`}
                 />
               </li>
               <MegaMenu
@@ -45,7 +45,7 @@ const HeaderOne = ({ data, menuOptions }) => {
                   className='uppercase'
                 >Distributor & Stockists</Link>
                 <div
-                  className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === '/' ? 'bg-theme-main' : ''}`}
+                  className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === '/distributors-&-stockists' ? 'bg-theme-main' : ''}`}
                 />
               </li>
             </ul>
@@ -73,7 +73,7 @@ const HeaderOne = ({ data, menuOptions }) => {
                   /> :
                   <li key={idx} className="relative group">
                     <Link className="uppercase" href={item?.href} key={idx}>{item?.label}</Link>
-                    <div className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === item?.Link ? 'bg-theme-main' : ''}`} />
+                    <div className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === item?.href ? 'bg-theme-main' : ''}`} />
                   </li>
                 ))}
               </ul>
