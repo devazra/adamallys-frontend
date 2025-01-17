@@ -19,12 +19,15 @@ const ThreeColumnContent = (props) => {
             <LiBold isGradientBg className='!text-xs md:!text-lg' key={index}>{point}</LiBold>
           )}
         </ul>
-        <div className='max-w-[178px]'>
-          <Link href={link} className='mt-6 whitespace-nowrap flex text-xs justify-between md:text-base items-center gap-6 bg-white py-[13px] px-[24px] text-[#2E368F] font_calibri rounded-full'>
-            <span className='!whitespace-nowrap'>View Products</span>
-            <Image src={'/svg/arrow_next.svg'} alt='arrow_next' width={16} height={16} />
-          </Link>
-        </div>
+        {
+          link && <div className='max-w-[178px]'>
+            <Link href={link} className='mt-6 whitespace-nowrap flex text-xs justify-between md:text-base items-center gap-6 bg-white py-[13px] px-[24px] text-[#2E368F] font_calibri rounded-full'>
+              <span className='!whitespace-nowrap'>View Products</span>
+              <Image src={'/svg/arrow_next.svg'} alt='arrow_next' width={16} height={16} />
+            </Link>
+          </div>
+        }
+
       </div>
       <div className='hidden lg:block'>
         <figure className='h-full'>

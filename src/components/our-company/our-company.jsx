@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import useIsMobile from "@/hooks/useIsMobile"
+import Link from "next/link";
 
 export const renderRichText = (blocks) => {
   return blocks?.map((block, index) => {
@@ -12,20 +13,35 @@ export const renderRichText = (blocks) => {
         if (HeadingTag === "h2") {
           return (
             <HeadingTag key={index} className="font_franklin">
-              {children?.map((child) => child.text)}
+              {children?.map((child, childIndex) =>
+                child.type === "text" ? child.text : null
+              )}
             </HeadingTag>
           );
         } else {
           return (
             <h3 key={index} className="!text-xl !text-[#3E3E3E]">
-              {children?.map((child) => child.text)}
+              {children?.map((child, childIndex) =>
+                child.type === "text" ? child.text : null
+              )}
             </h3>
           );
         }
       case "paragraph":
         return (
           <p key={index} className="!text-[12px] md:!text-[16px] font-light !mt-4 !text-[#3E3E3E]">
-            {children.map((child) => child.text)}
+            {children.map((child, childIndex) => {
+              if (child.type === "text") {
+                return child.text;
+              } else if (child.type === "link") {
+                return (
+                  <a key={childIndex} href={child.url} className="text-blue-500 underline">
+                    {child.children.map((linkChild) => linkChild.text)}
+                  </a>
+                );
+              }
+              return null;
+            })}
           </p>
         );
 
@@ -34,6 +50,7 @@ export const renderRichText = (blocks) => {
     }
   });
 };
+
 
 const OurCompany = ({ data }) => {
   const sectionRef = useRef(null);
@@ -119,43 +136,46 @@ const OurCompany = ({ data }) => {
               {renderRichText(data)}
             </div>
 
-            <button
-              className="flex items-center font_calibri justify-center md:justify-start w-full gap-2 text-xs md:text-base md:gap-10 text-theme-main mt-6" onClick={toggleExpand}
-            >
-              {expanded ? 'Read Less' : 'Read More'}
-              {expanded ?
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
-                  <mask id="mask0_42_1450" maskUnits="userSpaceOnUse" x="0" y="0" width="17" height="17">
-                    <rect width="17" height="17" fill="#D9D9D9" />
-                  </mask>
-                  <g mask="url(#mask0_42_1450)">
-                    <path
-                      d="M2.52911 11.5329L3.10237 10.9597L8.09316 5.39569L13.6572 10.9597L14.2305 10.3864L8.09316 4.2305L2.52911 10.3864L2.52911 11.5329Z"
-                      fill="#2E368F"
-                    />
-                  </g>
-                </svg>
-                :
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
-                  <mask
-                    id="mask0_42_1450"
-                    maskUnits="userSpaceOnUse"
-                    x="0"
-                    y="0"
-                    width="17"
-                    height="17"
-                  >
-                    <rect width="16.1863" height="16.1863" fill="#D9D9D9" />
-                  </mask>
-                  <g mask="url(#mask0_42_1450)">
-                    <path
-                      d="M5.39553 14.2305L4.82227 13.6572L10.3863 8.09316L4.82227 2.52911L5.39553 1.95584L11.5329 8.09316L5.39553 14.2305Z"
-                      fill="#2E368F"
-                    />
-                  </g>
-                </svg>
-              }
-            </button>
+            <div className="flex flex-col md:flex-row gap-5 justify-between items-center mt-6">
+              <button
+                className="flex items-center font_calibri justify-center md:justify-start w-full gap-2 text-xs md:text-base md:gap-10 text-theme-main " onClick={toggleExpand}
+              >
+                {expanded ? 'Read Less' : 'Read More'}
+                {expanded ?
+                  <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+                    <mask id="mask0_42_1450" maskUnits="userSpaceOnUse" x="0" y="0" width="17" height="17">
+                      <rect width="17" height="17" fill="#D9D9D9" />
+                    </mask>
+                    <g mask="url(#mask0_42_1450)">
+                      <path
+                        d="M2.52911 11.5329L3.10237 10.9597L8.09316 5.39569L13.6572 10.9597L14.2305 10.3864L8.09316 4.2305L2.52911 10.3864L2.52911 11.5329Z"
+                        fill="#2E368F"
+                      />
+                    </g>
+                  </svg>
+                  :
+                  <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+                    <mask
+                      id="mask0_42_1450"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="17"
+                      height="17"
+                    >
+                      <rect width="16.1863" height="16.1863" fill="#D9D9D9" />
+                    </mask>
+                    <g mask="url(#mask0_42_1450)">
+                      <path
+                        d="M5.39553 14.2305L4.82227 13.6572L10.3863 8.09316L4.82227 2.52911L5.39553 1.95584L11.5329 8.09316L5.39553 14.2305Z"
+                        fill="#2E368F"
+                      />
+                    </g>
+                  </svg>
+                }
+              </button>
+              <Link href="/about" className="font_calibri text-nowrap hover:bg-[#2E368F]/70 font-light text-white leading-[139%] py-[10px] px-[28px] bg-[#2E368F] rounded-[10px]">About Us</Link>
+            </div>
           </div>
         </div>
       </div>

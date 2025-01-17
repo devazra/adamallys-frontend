@@ -95,18 +95,24 @@ const Services = ({ data }) => {
                     : "h-[378px] object-cover sm:col-span-2 lg:col-span-2"
                     }`}
                 >
-                  <div>
-                    <Image
-                      width={573}
-                      height={378}
-                      alt={item?.title}
-                      src={getFullImageURL(item?.Image?.data?.attributes?.url)}
-                      className={`${styles.service_image} h-[378px] object-cover w-full`}
-                    />
-                  </div>
+                  <Link
+                    href={item?.link || "#"}
+                    className={`text-white text-[25px] md:text-[30px] font-bold font_calibri ${idx === 3 && "!text-black"
+                      }`}
+                  >
+                    <div>
+                      <Image
+                        width={573}
+                        height={378}
+                        alt={item?.title}
+                        src={getFullImageURL(item?.Image?.data?.attributes?.url)}
+                        className={`${styles.service_image} h-[378px] object-cover w-full`}
+                      />
+                    </div>
+                  </Link>
                   <div className="absolute px-[18px] md:px-9 gap-3 flex justify-between w-full items-end bottom-9">
                     <Link
-                      href={item?.item || "#"}
+                      href={item?.link || "#"}
                       className={`text-white text-[25px] md:text-[30px] font-bold font_calibri ${idx === 3 && "!text-black"
                         }`}
                     >
