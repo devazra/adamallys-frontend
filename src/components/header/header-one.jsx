@@ -3,13 +3,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MegaMenu from "./MegaMenu";
-import MobileHeader from "./mobile-header";
 import { usePathname } from "next/navigation";
 import RequestAQuoteButton from '@/components/RequestAQuoteButton'
 
-const HeaderOne = ({ data }) => {
-  const { Button, NavLinks, Logo } = data
-  const pathname = usePathname()
+const HeaderOne = ({ data, menuOptions }) => {
+  const { Button, Logo } = data
+  const pathname = usePathname();
 
   return (
     <header className={`z-[300] absolute top-0 w-full ${pathname !== "/" && "bg-white"}`}>
@@ -17,44 +16,47 @@ const HeaderOne = ({ data }) => {
         <div className="container mx-auto">
           <div className="flex justify-between items-center gap-4">
             <ul className="flex gap-4 2xl:gap-9 items-center">
+              <li className="relative group">
+                <Link
+                  href={'/'}
+                  className={'uppercase'}
+                >Home</Link>
+                <div
+                  className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === '/' ? 'bg-theme-main' : ''}`}
+                />
+              </li>
+              <MegaMenu
+                title='who We are'
+                links={[
+                  {
+                    label: 'About Us',
+                    href: '/about'
+                  },
+                  {
+                    label: 'Ports',
+                    href: '/ports'
+                  },
+                ]}
+              />
               <MegaMenu />
-              {NavLinks?.slice(0, 2).map((item, idx) => (
-                item?.Label?.toLowerCase() === 'standards & innovation' ?
-                  <MegaMenu
-                    key={idx}
-                    title='Standards & Innovation'
-                    links={[
-                      {
-                        label: 'Sustainability at Adamallys',
-                        href: '/sustainability'
-                      },
-                      {
-                        label: 'Digitalization & Technology at Adamallys',
-                        href: '/digitalization'
-                      },
-                      {
-                        label: 'Certification & Membership',
-                        href: '/certification'
-                      },
-                    ]}
-                  /> :
-                  <li key={idx} className="relative group">
-                    <Link
-                      href={item?.Link}
-                      className={`uppercase ${pathname === item?.Link ? '' : ''}`}
-                    >{item?.Label}</Link>
-                    <div className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === item?.Link ? 'bg-theme-main' : ''}`} />
-                  </li>
-              ))}
+              <li className="relative group">
+                <Link
+                  href={'/distributors-&-stockists'}
+                  className='uppercase'
+                >Distributor & Stockists</Link>
+                <div
+                  className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === '/' ? 'bg-theme-main' : ''}`}
+                />
+              </li>
             </ul>
             <div className="">
               <figure className={`flex justify-center items-center`}>
                 <Link href="/" className="">
                   <Image
                     alt="logo"
-                    width={126}
+                    width={200}
                     height={74}
-                    className="w-16 md:w-[140px]"
+                    className="w-16 md:w-[160px]"
                     src={Logo?.data?.attributes.url ?
                       Logo?.data?.attributes.url :
                       `/svg/logo.svg`}
@@ -64,26 +66,15 @@ const HeaderOne = ({ data }) => {
             </div>
             <div className="flex gap-[23px] justify-end">
               <ul className="flex items-center gap-4 2xl:gap-[27px]">
-                {NavLinks?.slice(2).map((item, idx) => (
-                  item?.Label?.toLowerCase() === 'who we are' ?
-                    <MegaMenu
-                      key={idx}
-                      title='who are we'
-                      links={[
-                        {
-                          label: 'About Us',
-                          href: '/about'
-                        },
-                        {
-                          label: 'Ports',
-                          href: '/ports'
-                        },
-                      ]}
-                    /> :
-                    <li key={idx} className="relative group">
-                      <Link className="uppercase" href={item?.Link} key={idx}>{item?.Label}</Link>
-                      <div className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === item?.Link ? 'bg-theme-main' : ''}`} />
-                    </li>
+                {menuOptions?.slice(-3).map((item, idx) => (item?.options ?
+                  <MegaMenu
+                    title={item?.label}
+                    links={item?.options}
+                  /> :
+                  <li key={idx} className="relative group">
+                    <Link className="uppercase" href={item?.href} key={idx}>{item?.label}</Link>
+                    <div className={`absolute bottom-[-4px] left-0 mt-2 w-[18px] h-[2px] group-hover:bg-theme-main ${pathname === item?.Link ? 'bg-theme-main' : ''}`} />
+                  </li>
                 ))}
               </ul>
               <RequestAQuoteButton Email={Button?.Email} />
@@ -91,7 +82,6 @@ const HeaderOne = ({ data }) => {
           </div>
         </div>
       </section>
-      <MobileHeader NavLinks={NavLinks} />
     </header>
   );
 };

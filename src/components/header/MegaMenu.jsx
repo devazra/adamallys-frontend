@@ -22,8 +22,8 @@ const MegaMenu = ({ title, links = [] }) => {
   const isIndustrialPage = pathname === "/industrial-&-energy-sector-supplies"
   const isMarineLogisticsPage = pathname === "/marine-logistics-&-warehousing"
 
-  const isActive = links?.map(({ href }) => href)?.includes(pathname)
-  const isProductActive = productAndServicesMegaMenu?.includes(pathname)
+  const isActive = links?.map(({ href }) => href)?.includes(pathname);
+  const isProductActive = productAndServicesMegaMenu?.includes(pathname);
 
   return (
     <div className="relative">
@@ -98,33 +98,31 @@ const MegaMenu = ({ title, links = [] }) => {
                 </>
               }
             </ul>
-            {!title &&
+            <div
+              onMouseEnter={() => setIsShipSupplyHovered(true)}
+              onMouseLeave={() => setIsShipSupplyHovered(false)}
+              className={`${isShipSupplyHovered ? 'flex' : 'hidden'}`}
+            >
+              <div className='w-[2px] bg-[rgba(0,0,0,0.075)]' />
               <div
-                onMouseEnter={() => setIsShipSupplyHovered(true)}
-                onMouseLeave={() => setIsShipSupplyHovered(false)}
-                className={`${isShipSupplyHovered ? 'flex' : 'hidden'}`}
-              >
-                <div className='w-[2px] bg-[rgba(0,0,0,0.075)]' />
-                <div
-                  className={`w-full min-w-[480px] flex  w-full bg-white text-theme-main`}>
-                  <ul className="grid grid-cols-2 gap-2 py-4 px-5">
-                    {shipSupplyPaginationData?.map((page, index) => (
-                      <li
-                        key={page?.link + index}
-                        className={`mr-5 relative group font-light ${page?.link === pathname && "!font-bold"}`}
-                      >
-                        <Link
-                          href={page?.link} className={`${styles.below_line} !whitespace-nowrap text-theme-main hover:font-bold font_calibri`}>
-                          {page?.label}
-                        </Link>
-                        <div
-                          className={`group-hover:bg-theme-main mt-2 w-[18px] h-[2px] ${page?.link === pathname ? 'bg-theme-main' : ''}`} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                className={`w-full min-w-[480px] flex  w-full bg-white text-theme-main`}>
+                <ul className="grid grid-cols-2 gap-2 py-4 px-5">
+                  {shipSupplyPaginationData?.map((page, index) => (
+                    <li
+                      key={page?.link + index}
+                      className={`mr-5 relative group font-light ${page?.link === pathname && "!font-bold"}`}
+                    >
+                      <Link
+                        href={page?.link} className={`${styles.below_line} !whitespace-nowrap text-theme-main hover:font-bold font_calibri`}>
+                        {page?.label}
+                      </Link>
+                      <div
+                        className={`group-hover:bg-theme-main mt-2 w-[18px] h-[2px] ${page?.link === pathname ? 'bg-theme-main' : ''}`} />
+                    </li>
+                  ))}
+                </ul>
               </div>
-            }
+            </div>
           </nav>
         </div>
       </div>

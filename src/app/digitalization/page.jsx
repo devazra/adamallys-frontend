@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <>
       <div className="mb-[5rem] md:mb-[120px]" />
-      <h1 className='font_calibri capitalize text-[25px] md:text-[60px] leading-[25px] md:leading-[60px] text-center font-bold text-theme-main md:mb-[46px] lg:pt-4'>
+      <h1 className='px-[18px] font_calibri capitalize text-[25px] md:text-[60px] leading-[25px] md:leading-[60px] text-center font-bold text-theme-main md:mb-[46px] lg:pt-4'>
         {data?.title}
       </h1>
       <div className='w-[49px] h-[2px] bg-[#8B8B8B] md:hidden mx-auto mt-2 mb-6' />
