@@ -142,7 +142,7 @@ const ProductsTemplate = ({ searchParams }) => {
   // filters
   const handleFilter = (e) => {
     const { name, value } = e?.target;
-    const params = { page: 1, ...searchParams, [name]: value };
+    const params = { ...searchParams, page: 1, [name]: value };
     // fetch products by updated filters
     fetchProducts(params)
     fetchFilterOptions(params)
@@ -152,7 +152,7 @@ const ProductsTemplate = ({ searchParams }) => {
 
   const handleClearFilter = (e) => {
     const { name } = e?.target;
-    let params = { page: 1, ...searchParams, [name]: "" };
+    let params = { ...searchParams,page: 1,  [name]: "" };
 
     delete params?.[name];
     // fetch products by updated filters
