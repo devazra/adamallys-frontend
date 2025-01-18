@@ -29,12 +29,14 @@ const getProducts = async (searchParams) => {
       Slug: { $in: [searchParams?.generalCategory] },
     };
 
-  if (searchParams?.searchQuery) {
-    filters.$or = [
-      { Title: { $containsi: searchParams?.searchQuery } },
-      { SKU: { $containsi: searchParams?.searchQuery } },
-    ];
-  }
+    if (searchParams?.searchQuery) {
+      filters = {
+        $or: [
+          { Title: { $containsi: searchParams.searchQuery } },
+          { SKU: { $containsi: searchParams.searchQuery } },
+        ],
+      };
+    }
 
   const params = qs.stringify({
     populate: [
