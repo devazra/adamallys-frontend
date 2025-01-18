@@ -38,7 +38,7 @@ const getProducts = async (searchParams) => {
 
   const params = qs.stringify({
     populate: [
-      "general_category", "specific_category", "base_categories"
+      "general_category", "secondary_category", "base_categories"
     ],
     filters,
     pagination: {
@@ -58,7 +58,7 @@ const ProductsTemplate = ({ searchParams }) => {
   const [filterOptions, setFilterOptions] = useState({
     categories: [],
     baseCategories: [],
-    secondaryCategory: [],
+    secondaryCategories: [],
   })
 
   const [products, setProducts] = useState([]);
@@ -103,33 +103,33 @@ const ProductsTemplate = ({ searchParams }) => {
     [searchParams]
   );
 
-  // fetch updated filters options
-
   const fetchFilterOptions = useCallback(
     async (params = searchParams) => {
       const GCparams = qs.stringify({
-        populate: ['general_categories', 'specific_categories'],
+        populate: ['general_categories', 'secondary_categories'],
         filters: {
-          Slug: { $eq: params?.baseCategory }
+          Slug: { $eq: params?.baseCategory },
+          secondary_categories: { Slug: { $eq: params?.secondaryCategory } }
         }
       }, { encodeValuesOnly: true });
 
       const baseCategoriesRes = await Axios(`/base-categories`);
       const baseCategory = await Axios(`/base-categories?${GCparams}`);
 
-      const categories = baseCategory?.data[0]?.attributes?.general_categories?.data
-      const specificCategories = baseCategory?.data[0]?.attributes?.specific_categories?.data
+      const categories = baseCategory?.data?.[0]?.attributes?.general_categories?.data
+      const secondaryCategories = baseCategory?.data?.[0]?.attributes?.secondary_categories?.data
 
       const baseCategories = baseCategoriesRes.data?.map((item) => ({
         Name: item.attributes.Name,
         Slug: item.attributes.Slug
       }));
 
+
       setFilterOptions(prev => ({
         ...prev,
         categories,
-        specificCategories,
         baseCategories,
+        secondaryCategories,
       }))
     }, [searchParams])
 
@@ -243,7 +243,7 @@ const ProductsTemplate = ({ searchParams }) => {
                   name="secondaryCategory"
                   placeholder='Secondary Category'
                   value={searchParams?.secondaryCategory}
-                  options={filterOptions?.secondaryCategory?.map((item) =>
+                  options={filterOptions?.secondaryCategories?.map((item) =>
                   ({
                     value: item?.attributes?.Slug,
                     label: item?.attributes?.Name

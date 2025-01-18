@@ -20,8 +20,8 @@ const ProductListing = ({ products = [], searchParams, isLoading }) => {
                 {searchParams?.generalCategory ?
                   product?.attributes?.general_category?.data?.attributes?.Name :
                   searchParams?.secondaryCategory ?
-                    product?.attributes?.secondary_categories?.data?.attributes?.Name :
-                    (product?.attributes?.base_categories?.data?.attributes?.Name || 'N/A')
+                    product?.attributes?.secondary_category?.data?.attributes?.Name :
+                    (product?.attributes?.base_categories?.data?.[0]?.attributes?.Name || 'N/A')
                 }
               </p>
               <p className="py-[21px] pl-4 md:pl-[50px] text-theme-main border-b border-theme-main md:text-lg leading-[26px] basis-[60%]">{product?.attributes?.Title}</p>
