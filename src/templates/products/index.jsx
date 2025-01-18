@@ -1,73 +1,170 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import qs from "qs"
 import Image from 'next/image';
+import { Axios } from '@/config/Axios';
 import Select from '@/components/Select';
+import { useRouter } from 'next/navigation';
 import Pagination from '@/components/Pagination';
-import FullPageLoader from '@/components/FullPageLoader';
-import { useRouter, useSearchParams } from 'next/navigation';
 import ProductListing from '../../components/ProductListing';
 
 const itemsPerPage = 50;
 
-const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCategory, baseCategorries, searchParams }) => {
+const getProducts = async (searchParams) => {
 
-  const params = useSearchParams()
-  const pageNo = params.get('page');
+  let filters = {};
 
-  const [currentPage, setCurrentPage] = useState(searchParams?.page ? searchParams?.page : 1);
-  const [products, setProducts] = useState(data?.data || []);
-  const [isLoading, setIsLoading] = useState(false)
+  // if (searchParams?.baseCategory)
+  //   filters.base_category = {
+  //     Slug: { $in: searchParams?.baseCategory },
+  //   };
+
+  // if (searchParams?.secondaryCategory)
+  //   secondary_category = {
+  //     Slug: { $in: searchParams?.secondaryCategory },
+  //   };
+
+  // if (searchParams?.generalCategory)
+  //   general_category = {
+  //     Slug: { $in: searchParams?.generalCategory },
+  //   };
+
+  if (searchParams?.searchQuery) {
+    filters.$or = [
+      { Title: { $contains: searchParams?.searchQuery } },
+      { SKU: { $contains: searchParams?.searchQuery } },
+    ];
+  }
+
+  const params = qs.stringify({
+    populate: [
+      "general_category", "specific_category", "base_categories"
+    ],
+    filters,
+    pagination: {
+      page: searchParams?.page ? searchParams?.page : 1,
+      pageSize: itemsPerPage
+    }
+  });
+
+  const response = await Axios(`/products?${params}`);
+  return response
+}
+
+const ProductsTemplate = ({ searchParams }) => {
+  const router = useRouter();
+  const isInitialLoading = useRef(true);
+
+  const [filterOptions, setFilterOptions] = useState({
+    categories: [],
+    baseCategories: [],
+    secondaryCategory: [],
+  })
+
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [searchQuery, setSearchQuery] = useState('');
 
-  const router = useRouter()
+  const [pagination, setPagination] = useState({
+    totalItems: 0,
+    currentPage: 1,
+    itemsPerPage: itemsPerPage,
+  });
 
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    setSearchQuery(value);
-    if (!value) {
-      setProducts(data?.data || []);
-      return;
-    }
-    const searchedProducts = data?.data?.filter((item) =>
-      item?.attributes?.Title?.toLowerCase()?.includes(value.toLowerCase())
-    );
-    setProducts(searchedProducts);
-  };
-
-  const handleFilter = (e) => {
-    const { name, value } = e?.target;
-    const params = { ...searchParams, page: 1, [name]: value };
-
+  const handleUpdateParams = (params) => {
     const objToQuery = Object.keys(params)
       .filter(key => params[key])
       .map((key) => `${key}=${params[key]}`)
       .join('&');
 
-    const q = `?${objToQuery}`;
+    router.push(`?${objToQuery}`);
+  }
 
-    router.push(q);
-    setIsLoading(true);
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    handleFilter(e);
+  };
+
+  // fetch products method
+  const fetchProducts = useCallback(
+    async (params = searchParams) => {
+      setIsLoading(true);
+      setSearchQuery(params?.searchQuery || '')
+      const res = await getProducts(params);
+      setProducts(res?.data || []);
+      setPagination({
+        itemsPerPage: itemsPerPage,
+        totalItems: res?.meta?.pagination?.total || 0,
+        currentPage: res?.meta?.pagination?.page || 1,
+      });
+      setIsLoading(false);
+    },
+    [searchParams]
+  );
+
+  const handlePagination = (page) => {
+    handleFilter({ target: { name: 'page', value: page } })
+  }
+
+  // filters
+  const handleFilter = (e) => {
+    const { name, value } = e?.target;
+    const params = { page: 1, ...searchParams, [name]: value };
+    // fetch products by updated filters
+    fetchProducts(params)
+    // update the searchparams
+    handleUpdateParams(params)
   }
 
   const handleClearFilter = (e) => {
     const { name } = e?.target;
-    let params = { ...searchParams, page: 1, [name]: "" };
+    let params = { page: 1, ...searchParams, [name]: "" };
 
     delete params?.[name];
-
-    const objToQuery = Object.keys(params)
-      .filter(key => params[key])
-      .map((key) => `${key}=${params[key]}`)
-      .join('&');
-
-    const q = `?${objToQuery}`;
-    router.push(q);
+    // fetch products by updated filters
+    fetchProducts(params)
+    // update the searchparams
+    handleUpdateParams(params)
   };
 
+  // load data initially
   useEffect(() => {
-    setProducts(data?.data || []);
-    setIsLoading(false);
-  }, [data]);
+    if (isInitialLoading.current) {
+      //get filter options
+      const fetchFilterOptions = async () => {
+        const GCparams = qs.stringify({
+          populate: ['general_categories', 'specific_categories'],
+          filters: {
+            Slug: { $eq: searchParams?.baseCategory }
+          }
+        }, { encodeValuesOnly: true });
+
+        const baseCategoriesRes = await Axios(`/base-categories`);
+        const baseCategory = await Axios(`/base-categories?${GCparams}`);
+
+        const categories = baseCategory?.data[0]?.attributes?.general_categories?.data
+        const specificCategories = baseCategory?.data[0]?.attributes?.specific_categories?.data
+
+        const baseCategories = baseCategoriesRes.data?.map((item) => ({
+          Name: item.attributes.Name,
+          Slug: item.attributes.Slug
+        }));
+
+        setFilterOptions(prev => ({
+          ...prev,
+          categories,
+          specificCategories,
+          baseCategories,
+        }))
+      };
+      fetchFilterOptions();
+
+      // load products
+      fetchProducts();
+      isInitialLoading.current = false
+    }
+  }, []);
 
   return (
     <main className='mt-[4rem] md:mt-[6rem] container mx-auto'>
@@ -103,7 +200,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCate
                 onClear={handleClearFilter}
                 placeholder='Base Category'
                 value={searchParams?.baseCategory}
-                options={baseCategorries?.map((item) =>
+                options={filterOptions?.baseCategories?.map((item) =>
                   ({ value: item?.Slug, label: item?.Name })
                 )}
               />
@@ -127,7 +224,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCate
                   onClear={handleClearFilter}
                   placeholder='Base Category'
                   value={searchParams?.baseCategory}
-                  options={baseCategorries?.map((item) =>
+                  options={filterOptions?.baseCategories?.map((item) =>
                   ({ value: item?.Slug, label: item?.Name }
                   ))}
                 />
@@ -140,7 +237,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCate
                   name="secondaryCategory"
                   placeholder='Secondary Category'
                   value={searchParams?.secondaryCategory}
-                  options={secondaryCategory?.map((item) =>
+                  options={filterOptions?.secondaryCategory?.map((item) =>
                   ({
                     value: item?.attributes?.Slug,
                     label: item?.attributes?.Name
@@ -156,7 +253,7 @@ const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCate
                   onClear={handleClearFilter}
                   placeholder='General Category'
                   value={searchParams?.generalCategory}
-                  options={categories?.map((item) =>
+                  options={filterOptions?.categories?.map((item) =>
                   ({
                     value: item?.attributes?.Slug,
                     label: item?.attributes?.Name
@@ -169,20 +266,17 @@ const ProductsTemplate = ({ data, categories, specificCategorries, secondaryCate
         </div>
 
         <div className='hidden md:block w-full h-[0.5px] bg-theme-main' />
-        <ProductListing products={products} searchParams={searchParams} />
+        <ProductListing
+          isLoading={isLoading}
+          products={products} searchParams={searchParams}
+        />
         <div className="my-[38px]">
           <Pagination
-            currentPage={currentPage}
-            itemsPerPage={itemsPerPage}
-            totalItems={data?.meta?.pagination?.total}
-            onPageChange={setCurrentPage}
+            {...pagination}
+            onPageChange={handlePagination}
           />
         </div>
       </div>
-      {
-        isLoading &&
-        <FullPageLoader />
-      }
     </main>
   )
 }

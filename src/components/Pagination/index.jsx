@@ -1,21 +1,13 @@
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
 
 const Pagination = (props) => {
   const { totalItems, itemsPerPage, currentPage, onPageChange } = props;
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const router = useRouter();
-  const params = useSearchParams();
-  const baseCategory = params.get("baseCategory");
 
   const handlePageChange = (page) => {
     if (page < 1 || page > totalPages) return; // Prevent going out of bounds
     onPageChange(page);
-    const query = baseCategory
-      ? `?baseCategory=${baseCategory}&page=${page}`
-      : `?page=${page}`;
-    router.push(query);
   };
 
   const renderPageNumbers = () => {
