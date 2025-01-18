@@ -3,7 +3,7 @@ import Link from 'next/link';
 import LiBold from '../LiBold';
 
 const TwoColumnContent = (props) => {
-  const { id, hideButton, invert, bgColor, bgGray = '', image, title, caption, points, isCustomBasis, zeroGap, link = '#', caption2 } = props;
+  const { id, hideButton, invert, bgColor, bgGray = '', image, title, caption, points, isCustomBasis, zeroGap, link, caption2 } = props;
 
   return (
     <section id={id} className={`bg-white container px-[18px] xl:px-0 mx-auto flex flex-col md:flex-row mb-4 ${zeroGap ? 'gap-4 md:gap-0' : 'gap-4'} ${invert && "md:!flex-row-reverse"}`}>
@@ -40,8 +40,7 @@ const TwoColumnContent = (props) => {
           }
           {caption2 && <p className='mt-2'>{caption2}</p>}
         </div>
-        {
-          !hideButton && link &&
+        {!hideButton && link &&
           <div className='max-w-[178px]'>
             <Link href={link || "#"} className={`flex whitespace-nowrap text-xs justify-between md:text-base items-center gap-6 ${bgGray ? "bg-theme-main text-white" : "bg-white text-theme-main"} py-[13px] px-[24px] font_calibri rounded-full`}>
               <span className='!whitespace-nowrap'>View Products</span>

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import LiBold from '../LiBold';
 
 const OneColumnContent = (props) => {
-  const { id, leftTitle, title, caption, image, points, link = '#' } = props;
+  const { id, leftTitle, title, caption, image, points, link } = props;
 
   return (
     <section id={id} className={`container mx-auto grid mb-4 px-[18px] xl:px-0`}>
