@@ -55,7 +55,7 @@ const IndustrialEnergy = (props) => {
                           {
                             item?.List?.map((item, id) => (
                               <li key={id}>
-                                <strong>{item?.Label}</strong>
+                                <span className='font-bold text-lg whitespace-nowrap mr-1'>{item?.Label}</span>
                                 <span className='font-light text-lg'>{item?.list}</span>
                               </li>
                             ))
