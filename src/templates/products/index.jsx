@@ -31,8 +31,8 @@ const getProducts = async (searchParams) => {
 
   if (searchParams?.searchQuery) {
     filters.$or = [
-      { Title: { $contains: searchParams?.searchQuery } },
-      { SKU: { $contains: searchParams?.searchQuery } },
+      { Title: { $containsi: searchParams?.searchQuery } },
+      { SKU: { $containsi: searchParams?.searchQuery } },
     ];
   }
 
