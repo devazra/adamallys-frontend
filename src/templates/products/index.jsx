@@ -103,6 +103,36 @@ const ProductsTemplate = ({ searchParams }) => {
     [searchParams]
   );
 
+  // fetch updated filters options
+
+  const fetchFilterOptions = useCallback(
+    async (params = searchParams) => {
+      const GCparams = qs.stringify({
+        populate: ['general_categories', 'specific_categories'],
+        filters: {
+          Slug: { $eq: params?.baseCategory }
+        }
+      }, { encodeValuesOnly: true });
+
+      const baseCategoriesRes = await Axios(`/base-categories`);
+      const baseCategory = await Axios(`/base-categories?${GCparams}`);
+
+      const categories = baseCategory?.data[0]?.attributes?.general_categories?.data
+      const specificCategories = baseCategory?.data[0]?.attributes?.specific_categories?.data
+
+      const baseCategories = baseCategoriesRes.data?.map((item) => ({
+        Name: item.attributes.Name,
+        Slug: item.attributes.Slug
+      }));
+
+      setFilterOptions(prev => ({
+        ...prev,
+        categories,
+        specificCategories,
+        baseCategories,
+      }))
+    }, [searchParams])
+
   const handlePagination = (page) => {
     handleFilter({ target: { name: 'page', value: page } })
   }
@@ -113,6 +143,7 @@ const ProductsTemplate = ({ searchParams }) => {
     const params = { page: 1, ...searchParams, [name]: value };
     // fetch products by updated filters
     fetchProducts(params)
+    fetchFilterOptions(params)
     // update the searchparams
     handleUpdateParams(params)
   }
@@ -124,6 +155,8 @@ const ProductsTemplate = ({ searchParams }) => {
     delete params?.[name];
     // fetch products by updated filters
     fetchProducts(params)
+    fetchFilterOptions(params)
+
     // update the searchparams
     handleUpdateParams(params)
   };
@@ -132,34 +165,7 @@ const ProductsTemplate = ({ searchParams }) => {
   useEffect(() => {
     if (isInitialLoading.current) {
       //get filter options
-      const fetchFilterOptions = async () => {
-        const GCparams = qs.stringify({
-          populate: ['general_categories', 'specific_categories'],
-          filters: {
-            Slug: { $eq: searchParams?.baseCategory }
-          }
-        }, { encodeValuesOnly: true });
-
-        const baseCategoriesRes = await Axios(`/base-categories`);
-        const baseCategory = await Axios(`/base-categories?${GCparams}`);
-
-        const categories = baseCategory?.data[0]?.attributes?.general_categories?.data
-        const specificCategories = baseCategory?.data[0]?.attributes?.specific_categories?.data
-
-        const baseCategories = baseCategoriesRes.data?.map((item) => ({
-          Name: item.attributes.Name,
-          Slug: item.attributes.Slug
-        }));
-
-        setFilterOptions(prev => ({
-          ...prev,
-          categories,
-          specificCategories,
-          baseCategories,
-        }))
-      };
       fetchFilterOptions();
-
       // load products
       fetchProducts();
       isInitialLoading.current = false
