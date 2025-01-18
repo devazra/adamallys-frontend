@@ -174,7 +174,7 @@ const OurCompany = ({ data }) => {
                   </svg>
                 }
               </button>
-              <Link href="/about" className="font_calibri text-nowrap hover:bg-[#2E368F]/70 font-light text-white leading-[139%] py-[10px] px-[28px] bg-[#2E368F] rounded-[10px]">About Us</Link>
+              <Link href="/about" className="font_calibri text-nowrap bg-[#2e368fbf] hover:bg-theme-main font-light text-white leading-[139%] py-[10px] px-[28px] rounded-[10px]">About Us</Link>
             </div>
           </div>
         </div>
