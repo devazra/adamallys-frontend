@@ -14,20 +14,20 @@ const getProducts = async (searchParams) => {
 
   let filters = {};
 
-  // if (searchParams?.baseCategory)
-  //   filters.base_category = {
-  //     Slug: { $in: searchParams?.baseCategory },
-  //   };
+  if (searchParams?.baseCategory)
+    filters.base_category = {
+      Slug: { $in: [searchParams?.baseCategories] },
+    };
 
-  // if (searchParams?.secondaryCategory)
-  //   secondary_category = {
-  //     Slug: { $in: searchParams?.secondaryCategory },
-  //   };
+  if (searchParams?.secondaryCategory)
+    filters.secondary_category = {
+      Slug: { $in: [searchParams?.secondaryCategory] },
+    };
 
-  // if (searchParams?.generalCategory)
-  //   general_category = {
-  //     Slug: { $in: searchParams?.generalCategory },
-  //   };
+  if (searchParams?.generalCategory)
+    filters.general_category = {
+      Slug: { $in: [searchParams?.generalCategory] },
+    };
 
   if (searchParams?.searchQuery) {
     filters.$or = [
