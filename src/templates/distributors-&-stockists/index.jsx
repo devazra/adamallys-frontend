@@ -116,7 +116,9 @@ const DistributorsAndStockistsTemplate = ({ Cards, Banner }) => {
               </div>
               <div className="border-t border-t-[#B2B6E0]" />
               <div className="flex webkit-flex justify-center gap-4 lg:gap-8 py-2 lg:py-4  items-center mt-1 mb-1">
-                <a className='whitespace-nowrap font_calibri text-xs bg-white  md:text-lg font-bold leading-[26px] text-theme-main py-2 lg:py-4 px-[30px] md:px-[65px] border border-[#B2B6E0] rounded-[30px]' href={distributor?.link} target='_blank'>Visit Website</a>
+                {distributor?.link &&
+                  <a className='whitespace-nowrap font_calibri text-xs bg-white  md:text-lg font-bold leading-[26px] text-theme-main py-2 lg:py-4 px-[30px] md:px-[65px] border border-[#B2B6E0] rounded-[30px]' href={distributor?.link} target='_blank'>Visit Website</a>
+                }
                 <a className='whitespace-nowrap font_calibri bg-white text-xs md:text-lg font-bold leading-[26px] text-theme-main py-2 lg:py-4 px-[30px] md:px-[65px] border border-[#B2B6E0] rounded-[30px]' href="mailto:adamallys@adamallys-llc.com" target='_self'>Enquire Now</a>
               </div>
             </div>
