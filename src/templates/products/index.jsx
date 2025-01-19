@@ -14,29 +14,37 @@ const getProducts = async (searchParams) => {
 
   let filters = {};
 
-  if (searchParams?.baseCategory)
+  if (searchParams?.searchQuery) {
+    filters = {
+      $or: [
+        { Title: { $containsi: searchParams.searchQuery } },
+        { SKU: { $containsi: searchParams.searchQuery } },
+      ],
+    };
+  }
+
+  if (searchParams?.baseCategory) {
     filters.base_category = {
       Slug: { $in: [searchParams?.baseCategories] },
-    };
+    }
+  }
 
-  if (searchParams?.secondaryCategory)
+  if (searchParams?.secondaryCategory) {
     filters.secondary_category = {
       Slug: { $in: [searchParams?.secondaryCategory] },
-    };
+    }
+  }
 
-  if (searchParams?.generalCategory)
+  if (searchParams?.generalCategory) {
     filters.general_category = {
       Slug: { $in: [searchParams?.generalCategory] },
-    };
-
-    if (searchParams?.searchQuery) {
-      filters = {
-        $or: [
-          { Title: { $containsi: searchParams.searchQuery } },
-          { SKU: { $containsi: searchParams.searchQuery } },
-        ],
-      };
     }
+  }
+
+  
+  
+
+  console.log("🚀 ~ getProducts ~ filters:", filters)
 
   const params = qs.stringify({
     populate: [
@@ -152,7 +160,7 @@ const ProductsTemplate = ({ searchParams }) => {
 
   const handleClearFilter = (e) => {
     const { name } = e?.target;
-    let params = { ...searchParams,page: 1,  [name]: "" };
+    let params = { ...searchParams, page: 1, [name]: "" };
 
     delete params?.[name];
     // fetch products by updated filters
