@@ -42,10 +42,6 @@ const getProducts = async (searchParams) => {
   }
 
   
-  
-
-  console.log("🚀 ~ getProducts ~ filters:", filters)
-
   const params = qs.stringify({
     populate: [
       "general_category", "secondary_category", "base_categories"
