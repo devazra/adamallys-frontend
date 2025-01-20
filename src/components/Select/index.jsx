@@ -87,15 +87,17 @@ const Select = (props) => {
             {filteredOptions?.length === 0 ? (
               <div className="px-6 py-2 text-gray-500">No results found</div>
             ) : (
-              filteredOptions?.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="px-6 py-2 hover:bg-gray-100 cursor-pointer text-theme-main"
-                  onClick={() => handleOptionSelect({ target: { name, value: item?.value } })}
-                >
-                  {item?.label}
-                </div>
-              ))
+              filteredOptions
+                ?.sort((a, b) => a.label.localeCompare(b.label))  // Sort options alphabetically by label
+                .map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="px-6 py-2 hover:bg-gray-100 cursor-pointer text-theme-main"
+                    onClick={() => handleOptionSelect({ target: { name, value: item?.value } })}
+                  >
+                    {item?.label}
+                  </div>
+                ))
             )}
           </div>
         </div>

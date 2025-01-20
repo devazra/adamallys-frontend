@@ -66,7 +66,6 @@ const ProductsTemplate = ({ searchParams }) => {
     baseCategories: [],
     secondaryCategories: [],
   })
-  console.log("🚀 ~ ProductsTemplate ~ filterOptions:", filterOptions)
 
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -112,7 +111,6 @@ const ProductsTemplate = ({ searchParams }) => {
 
   const fetchFilterOptions = useCallback(
     async (params = searchParams) => {
-      console.log("🚀 ~ params:", params)
       const GCparams = qs.stringify({
         populate: ['general_categories', 'secondary_categories'],
         filters: {
