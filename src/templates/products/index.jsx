@@ -24,8 +24,8 @@ const getProducts = async (searchParams) => {
   }
 
   if (searchParams?.baseCategory) {
-    filters.base_category = {
-      Slug: { $in: [searchParams?.baseCategories] },
+    filters.base_categories = {
+      Slug: { $in: [searchParams?.baseCategory] },
     }
   }
 
@@ -41,7 +41,7 @@ const getProducts = async (searchParams) => {
     }
   }
 
-  
+
   const params = qs.stringify({
     populate: [
       "general_category", "secondary_category", "base_categories"
