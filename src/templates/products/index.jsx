@@ -66,6 +66,7 @@ const ProductsTemplate = ({ searchParams }) => {
     baseCategories: [],
     secondaryCategories: [],
   })
+  console.log("🚀 ~ ProductsTemplate ~ filterOptions:", filterOptions)
 
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -111,6 +112,7 @@ const ProductsTemplate = ({ searchParams }) => {
 
   const fetchFilterOptions = useCallback(
     async (params = searchParams) => {
+      console.log("🚀 ~ params:", params)
       const GCparams = qs.stringify({
         populate: ['general_categories', 'secondary_categories'],
         filters: {
@@ -130,10 +132,11 @@ const ProductsTemplate = ({ searchParams }) => {
         Slug: item.attributes.Slug
       }));
 
+      const generalCategories = await filterGeneralCategories(params?.secondaryCategory)
 
       setFilterOptions(prev => ({
         ...prev,
-        categories,
+        categories: params?.secondaryCategory ? generalCategories : categories,
         baseCategories,
         secondaryCategories,
       }))
@@ -144,7 +147,7 @@ const ProductsTemplate = ({ searchParams }) => {
   }
 
   // filters
-  const handleFilter = (e) => {
+  const handleFilter = async (e) => {
     const { name, value } = e?.target;
     const params = { ...searchParams, page: 1, [name]: value };
     // fetch products by updated filters
@@ -152,6 +155,11 @@ const ProductsTemplate = ({ searchParams }) => {
     fetchFilterOptions(params)
     // update the searchparams
     handleUpdateParams(params)
+
+    
+    if(name === 'secondaryCategory'){
+      
+    }
   }
 
   const handleClearFilter = (e) => {
@@ -177,6 +185,18 @@ const ProductsTemplate = ({ searchParams }) => {
       isInitialLoading.current = false
     }
   }, []);
+
+
+  const filterGeneralCategories = async (value) => {
+    const sparams = qs.stringify({
+      populate: ['general_categories'],
+      filters: {
+        Slug: { $eq: value },
+      }
+    }, { encodeValuesOnly: true });
+    const generalCategory = await Axios(`/secondary-categories?${sparams}`);
+    return generalCategory?.data?.[0]?.attributes?.general_categories?.data
+  }
 
   return (
     <main className='mt-[4rem] md:mt-[6rem] container mx-auto'>
