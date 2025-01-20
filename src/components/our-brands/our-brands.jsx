@@ -90,7 +90,7 @@ const OurBrands = ({ data, content }) => {
             <div className="w-10 h-[1px] bg-theme-main" />
           </h3>
           <div className="flex items-center gap-7">
-            <Link href="/about" className="font_calibri hidden md:block text-nowrap hover:bg-[#2E368F]/70 font-light text-white leading-[139%] py-[10px] px-[28px] bg-[#2E368F] rounded-[10px]">View All Brands</Link>
+            <Link href="/about" className="font_calibri hidden md:block text-nowrap font-light text-white leading-[139%] py-[10px] px-[28px] bg-[#2e368fbf] hover:bg-theme-main rounded-[10px]">View All Brands</Link>
             <div className="items-center gap-2 hidden md:flex">
               <Image
                 src="/svg/arrow_circle_left.svg"
